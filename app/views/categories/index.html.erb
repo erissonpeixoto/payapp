@@ -1,0 +1,68 @@
+<% unless notice.nil? %>
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card-panel green accent-2">
+        <span id="notice" class="black-text">
+          <i class="material-icons">check</i>
+          <%= notice %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<h4>Categorias</h4>
+
+<% unless alert.nil? %>
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card-panel red">
+        <span id="alert" class="white-text">
+          <i class="material-icons">error</i>
+          <%= alert %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @categories.any? %>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th width="75%">Nome</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %></td>
+          <td><%= link_to category, class: 'btn-floating btn-small waves-effect waves-light blue' do %>
+                <i class="material-icons">pageview</i>
+              <% end %>
+          </td>
+          <td><%= link_to edit_category_path(category), class: 'btn-floating btn-small waves-effect waves-light green' do %>
+                <i class="material-icons">edit</i>
+              <% end %>
+          </td>
+          <td><%= link_to category, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn-floating btn-small waves-effect waves-light red' do %>
+                <i class="material-icons">delete</i>
+              <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h6 class="header red-text text-lighten-1 center-align">Não há registros para mostrar</h6>
+<% end %>
+
+<div class="right"><h6><strong><%= "#{"Total de registros: " + @categories.count.to_s}" %></strong></h6></div>
+
+<%= will_paginate @categories %>
+
+<br>
+
+<%= link_to 'Nova Categoria', new_category_path, class: 'waves-effect waves-light btn' %>

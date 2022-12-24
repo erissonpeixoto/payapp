@@ -1,0 +1,52 @@
+<%= form_for(expense) do |f| %>
+  <% if expense.errors.any? %>
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="card-panel red">
+          <span id="notice" class="white-text">
+            <i class="material-icons">error</i>
+            <%= pluralize(expense.errors.count, "erro(s)") %> Não foi possível salvar:
+            <ul>
+              <% expense.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>  
+
+  <div class="row">
+    <div class="field col s12 m6">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>  
+
+    <div class="input-field col s12 m6">
+      <label>
+        <%= f.check_box :fixed, class: "filled-in" %>
+        <span>Fixo?</span>
+      </label>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="input-field col s12 m6">
+      <%= f.label :category, class: 'active' %>
+      <%= f.select :category_id, 
+          options_from_collection_for_select(Category.where(user: current_user).order(:name), :id, :name, f.object.category_id ),
+          { :include_blank => 'Selecione' }, { :class => 'browser-default' } %>
+    </div>
+  </div>
+
+  <br>
+  
+  <div class="actions">
+    <button class="btn waves-effect waves-light" type="submit" name="action">
+      Salvar<i class="material-icons right">save</i>
+    </button>
+  </div>
+  
+  <br>
+<% end %>

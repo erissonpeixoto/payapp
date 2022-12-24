@@ -1,0 +1,30 @@
+<% unless notice.nil? %>
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card-panel green accent-2">
+        <span id="notice" class="black-text">
+          <i class="material-icons">check</i>
+          <%= notice %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @expense.name %>
+</p>
+
+<p>
+  <strong>Fixa?</strong>
+  <%= badges_boolean(@expense.fixed) %>
+</p>
+
+<p>
+  <strong>Categoria:</strong>
+  <%= @expense.try(:category).try(:name) %>
+</p>
+
+<%= link_to 'Editar', edit_expense_path(@expense), class: 'waves-effect waves-light btn blue-grey' %> |
+<%= link_to 'Voltar', expenses_path, class: 'waves-effect waves-light btn blue-grey' %>

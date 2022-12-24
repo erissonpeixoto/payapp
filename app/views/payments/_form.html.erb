@@ -1,0 +1,81 @@
+<%= form_for(payment) do |f| %>
+  <% if payment.errors.any? %>
+    <div class="row">
+      <div class="col s12 m12">
+        <div class="card-panel red">
+          <span id="notice" class="white-text">
+            <i class="material-icons">error</i>
+            <%= pluralize(payment.errors.count, "erro(s)") %> Não foi possível salvar:
+            <ul>
+              <% payment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>  
+
+  <div class="row">
+    <div class="input-field col s6">
+      <%= f.label :payday, class: 'active' %>
+      <%= f.text_field :payday, class: 'datepicker', value: (f.object.payday.strftime('%d/%m/%Y') if f.object.payday) %>
+    </div>
+
+    <div class="input-field col s6">
+      <%= f.label :status, class: 'active' %>
+      <%= f.select :status, Payment.statuses.keys.to_a, { :include_blank => 'Selecione' }, { :class => 'browser-default' } %>
+    </div>  
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">mode_edit</i>
+      <%= f.label :note, class: 'active' %>
+      <%= f.text_field :note %>
+    </div>
+  </div> 
+
+  <% if payment.persisted? && payment.expenses_fixed_not_used.any?%>
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card-panel yellow">
+        <span id="notice" class="black-text">
+          <i class="material-icons">info</i>
+            Despesas ainda não adicionadas:
+            <%= payment.expenses_fixed_not_used.map {|expense| expense.name } %>
+        </span>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <fieldset>
+    <legend><strong>Despesas</strong></legend>
+    <div id="expense_payments">
+      <span>Adicione suas despesas</span>
+      <%= link_to_add_association(f, :expense_payments, class: 'btn-floating btn-small waves-effect waves-light blue') do %>
+        <i class="material-icons">add</i>
+      <% end %>
+      <%= f.fields_for :expense_payments, payment.expense_payments do |expense_payments_fields| %>
+        <%= render partial: "expense_payment_fields", locals: { f: expense_payments_fields } %>
+      <% end %>
+    </div>
+  </fieldset>
+  <br>
+
+  <div class="actions">
+    <button class="btn waves-effect waves-light" type="submit" name="action">
+      Salvar<i class="material-icons right">save</i>
+    </button>
+  </div>
+  <br>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });  
+
+</script>

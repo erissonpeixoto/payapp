@@ -69,5 +69,6 @@ gem 'devise'
 gem "chartkick"
 
 gem 'mimemagic', '0.3.10'
+gem 'marcel', '~> 0.3.2'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby

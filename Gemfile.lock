@@ -201,7 +201,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
-  mimemagic (~> 0.3.7)
+  mimemagic (= 0.3.10)
   pg (>= 0.18, < 2.0)
   puma (~> 3.0)
   rails (~> 5.2)

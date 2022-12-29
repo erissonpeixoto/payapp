@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -69,3 +69,5 @@ gem 'devise'
 gem "chartkick"
 
 gem 'mimemagic', '~> 0.3.7'
+gem 'execjs'
+gem 'therubyracer', :platforms => :ruby

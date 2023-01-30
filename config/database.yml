@@ -84,7 +84,7 @@ test:
 #
 production:
   <<: *default
-  # url: postgresql://postgres:HtxY08k6PVBll79IQaBp@containers-us-west-73.railway.app:5772/railway
+  url: <%= ENV['DATABASE_URL'] %>
   host: containers-us-west-73.railway.app
   database: railway
   username: postgres

@@ -20,12 +20,13 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password: postgres
-  host: localhost
+  # username: postgres
+  # password: postgres
+  # host: localhost
 
 development:
   <<: *default
+  # url: postgresql://postgres:HtxY08k6PVBll79IQaBp@containers-us-west-73.railway.app:5772/railway
   database: payapp_development
 
   # The specified database role being used to connect to postgres.
@@ -83,9 +84,10 @@ test:
 #
 production:
   <<: *default
-  host: ec2-23-23-226-190.compute-1.amazonaws.com
-  database: d1o8urrijg1ofp
-  username: hybrpokymvrzag
-  password: 365a152f19ba02df50416cc736c8ce380ed03bb87faaa7d6153f08467be0f8b7
-  port: 5432
+  # url: postgresql://postgres:HtxY08k6PVBll79IQaBp@containers-us-west-73.railway.app:5772/railway
+  host: containers-us-west-73.railway.app
+  database: railway
+  username: postgres
+  password: HtxY08k6PVBll79IQaBp
+  port: 5772
 

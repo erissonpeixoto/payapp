@@ -65,6 +65,10 @@ GEM
       responders
       warden (~> 1.2.3)
     digest (3.1.1)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     execjs (2.8.1)
     ffi (1.15.5)
@@ -213,6 +217,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.2)
   devise
+  dotenv-rails
   execjs
   jbuilder (~> 2.5)
   jquery-rails

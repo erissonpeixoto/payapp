@@ -68,7 +68,7 @@ gem 'devise'
 #Create beautiful JavaScript charts with one line of Ruby https://chartkick.com
 gem "chartkick"
 
-#gem 'mimemagic', '~> 0.3.10'
-#gem 'marcel', '~> 0.3.2'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
+
+gem 'dotenv-rails', groups: [:development, :test]

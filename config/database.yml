@@ -20,13 +20,13 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  # username: postgres
-  # password: postgres
-  # host: localhost
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
+  host: <%= ENV['HOST'] %>
 
 development:
   <<: *default
-  # url: postgresql://postgres:HtxY08k6PVBll79IQaBp@containers-us-west-73.railway.app:5772/railway
+  url: <%= ENV['DATABASE_URL'] %>
   database: payapp_development
 
   # The specified database role being used to connect to postgres.

@@ -1,10 +1,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  onfig.hosts << "payapp-production.up.railway.app"
+  onfig.hosts << "payapp.up.railway.app"
 
   #Devise
-  config.action_mailer.default_url_options = { :host => 'payapp-production.up.railway.app', :protocol => 'http' }
+  config.action_mailer.default_url_options = { :host => 'payapp.up.railway.app', :protocol => 'http' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,

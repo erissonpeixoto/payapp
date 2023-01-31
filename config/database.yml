@@ -85,9 +85,5 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  host: containers-us-west-73.railway.app
   database: railway
-  username: postgres
-  password: HtxY08k6PVBll79IQaBp
-  port: 5772
 

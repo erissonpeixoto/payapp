@@ -26,6 +26,12 @@
 <% end %>
 
 <div class="row">
+  <div class="field col s12 m12">
+    <%= link_to "Ver detalhes",  @last_user_payment %>
+  </div>
+</div>
+
+<div class="row">
   <div class="field col s12 m6">
     <%= pie_chart @chart_pay_and_balance, colors: @color_chart_pay_and_balance, label: "Valor", prefix: "R$ ", thousands: ".", decimal: ",", library: {
         title: {text: 'Saldo do Mês atual'},

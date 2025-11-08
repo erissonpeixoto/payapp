@@ -1,0 +1,19 @@
+# Ignore .git directory
+.git
+.gitignore
+
+# Ignore local development artifacts
+log/
+tmp/
+.byebug_history
+
+# Ignore Docker-related files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore node_modules
+node_modules/
+
+# Ignore local secrets
+.env

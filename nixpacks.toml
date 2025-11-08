@@ -1,2 +1,2 @@
 [phases.setup]
-nixPkgs = ["...", "postgresql_15"]
+nixLibs = ["...", "postgresql_15.dev"]

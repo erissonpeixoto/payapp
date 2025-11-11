@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_15_133002) do
+ActiveRecord::Schema.define(version: 2025_11_11_233738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "timescaledb"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -59,6 +58,27 @@ ActiveRecord::Schema.define(version: 2018_09_15_133002) do
     t.integer "user_id"
   end
 
+  create_table "revenue_payments", force: :cascade do |t|
+    t.bigint "revenue_id"
+    t.bigint "payment_id"
+    t.decimal "value", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_id"], name: "index_revenue_payments_on_payment_id"
+    t.index ["revenue_id"], name: "index_revenue_payments_on_revenue_id"
+  end
+
+  create_table "revenues", force: :cascade do |t|
+    t.string "name"
+    t.boolean "fixed"
+    t.bigint "user_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_revenues_on_category_id"
+    t.index ["user_id"], name: "index_revenues_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -78,4 +98,8 @@ ActiveRecord::Schema.define(version: 2018_09_15_133002) do
 
   add_foreign_key "expense_payments", "expenses"
   add_foreign_key "expense_payments", "payments"
+  add_foreign_key "revenue_payments", "payments"
+  add_foreign_key "revenue_payments", "revenues"
+  add_foreign_key "revenues", "categories"
+  add_foreign_key "revenues", "users"
 end

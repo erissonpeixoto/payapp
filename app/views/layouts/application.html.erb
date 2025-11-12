@@ -21,6 +21,7 @@
         <li><%= link_to 'Configuração', configurations_path %></li>
         <li><%= link_to 'Categorias', categories_path %></li>
         <li><%= link_to 'Despesas', expenses_path %></li>
+        <li><%= link_to 'Receitas', revenues_path %></li>
         <li><%= link_to 'Pagamentos', payments_path %></li>
         <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
       </ul>
@@ -35,6 +36,7 @@
             <li><%= link_to 'Configuração', configurations_path %></li>
             <li><%= link_to 'Categorias', categories_path %></li>
             <li><%= link_to 'Despesas', expenses_path %></li>
+            <li><%= link_to 'Receitas', revenues_path %></li>
             <li><%= link_to 'Pagamentos', payments_path %></li>
             <li><i class="material-icons left">account_circle</i><%= "#{"  Bem Vindo! "}" + current_user.email if user_signed_in? %></li>
             <li>

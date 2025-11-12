@@ -1,0 +1,19 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="input-field col s7">
+      <%= f.label :revenue, class: 'active' %>
+      <%= f.select :revenue_id, 
+          options_from_collection_for_select(Revenue.where(user: current_user).order(:name), :id, :name, f.object.revenue_id ),
+          { :include_blank => 'Selecione' }, { :class => 'browser-default' } %>
+    </div>
+    <div class="input-field col s3">
+      <%= f.label :value, class: 'active' %>
+      <%= f.number_field :value, step: :any %>
+    </div>
+    <div class="input-field col s2">  
+      <%= link_to_remove_association(f, class: 'btn-floating btn-small waves-effect waves-light red') do %>
+        <i class="material-icons">delete</i>
+      <% end %>
+    </div>
+  </div> 
+</div>

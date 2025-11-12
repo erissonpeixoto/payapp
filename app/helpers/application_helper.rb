@@ -10,9 +10,13 @@ module ApplicationHelper
     end
   end
 
-  def badges_boolean boolean
+  def badges_boolean boolean, type = nil
     if boolean
-      '<span class="new badge green" data-badge-caption="SIM"></span>'.html_safe
+      if type == :expense
+        '<span class="new badge blue" data-badge-caption="SIM"></span>'.html_safe
+      else
+        '<span class="new badge green" data-badge-caption="SIM"></span>'.html_safe
+      end
     else
       '<span class="new badge grey" data-badge-caption="NÃO"></span>'.html_safe
     end

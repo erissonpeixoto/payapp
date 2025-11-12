@@ -4,6 +4,8 @@ pt-BR:
       expense: Despesas
       payment: Pagamentos
       expense_payments: Despesas do Pagamento
+      revenue: Receitas
+      revenue_payments: Receitas do Pagamento
       configuration: Configuração
       category: Categoria
       user: Usuário
@@ -15,6 +17,11 @@ pt-BR:
         password_confirmation: Confirme sua senha
         remember_me: Lembrar senha  
       expense:
+        name: Nome
+        payments: Pagamentos
+        category: Categoria
+        category_id: Categoria
+      revenue:
         name: Nome
         payments: Pagamentos
         category: Categoria
@@ -31,9 +38,17 @@ pt-BR:
       expense_payment:
         value: Valor
         expense: Despesa
+      revenue_payments: 
+        value: Valor
+        revenue_id: Pagamento de
+        payment_id: Pagamento de
+      revenue_payment:
+        value: Valor
+        revenue: Receita
       category:
         name: Nome
         expenses: Despesas
+        revenues: Receitas
       configuration:
         salary: Salário   
     errors:

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ConfigurationsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    sign_in users(:one)
     @configuration = configurations(:one)
   end
 

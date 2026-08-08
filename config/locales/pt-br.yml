@@ -38,13 +38,15 @@ pt-BR:
       expense_payment:
         value: Valor
         expense: Despesa
-      revenue_payments: 
+        paid_at: Data de Pagamento
+      revenue_payments:
         value: Valor
         revenue_id: Pagamento de
         payment_id: Pagamento de
       revenue_payment:
         value: Valor
         revenue: Receita
+        paid_at: Data de Recebimento
       category:
         name: Nome
         expenses: Despesas

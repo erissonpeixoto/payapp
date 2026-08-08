@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ExpensesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    sign_in users(:one)
     @expense = expenses(:one)
   end
 
@@ -17,7 +18,7 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create expense" do
     assert_difference('Expense.count') do
-      post expenses_url, params: { expense: { name: @expense.name } }
+      post expenses_url, params: { expense: { name: @expense.name, category_id: categories(:one).id } }
     end
 
     assert_redirected_to expense_url(Expense.last)
@@ -34,15 +35,18 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update expense" do
-    patch expense_url(@expense), params: { expense: { name: @expense.name } }
+    patch expense_url(@expense), params: { expense: { name: @expense.name, category_id: @expense.category_id } }
     assert_redirected_to expense_url(@expense)
   end
 
-  test "should destroy expense" do
-    assert_difference('Expense.count', -1) do
+  test "should keep expense with payments and show alert" do
+    assert_no_difference('Expense.count') do
       delete expense_url(@expense)
     end
 
     assert_redirected_to expenses_url
+    assert flash[:alert].present?
+    follow_redirect!
+    assert_select '#alert', count: 1
   end
 end

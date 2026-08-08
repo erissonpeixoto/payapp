@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_11_11_233738) do
+ActiveRecord::Schema.define(version: 2026_08_02_212015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2025_11_11_233738) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "value", precision: 8, scale: 2
+    t.datetime "paid_at"
     t.index ["expense_id"], name: "index_expense_payments_on_expense_id"
     t.index ["payment_id"], name: "index_expense_payments_on_payment_id"
   end
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(version: 2025_11_11_233738) do
     t.decimal "value", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "paid_at"
     t.index ["payment_id"], name: "index_revenue_payments_on_payment_id"
     t.index ["revenue_id"], name: "index_revenue_payments_on_revenue_id"
   end

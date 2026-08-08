@@ -4,8 +4,12 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  payday: 2026-08-01
+  status: aberto
+  user: one
+
+two:
+  payday: 2026-08-02
+  status: concluido
+  user: two

@@ -1,13 +1,13 @@
 module ApplicationHelper
 
+  BADGE_STYLES = {
+    'aberto'    => { color: 'red',    label: 'aberto' },
+    'concluido' => { color: 'green',  label: 'concluído' }
+  }.freeze
+
   def badges status
-    if status == "aberto"
-      '<span class="new badge red" data-badge-caption="aberto"></span>'.html_safe
-    elsif status == "concluido"
-      '<span class="new badge green" data-badge-caption="concluído"></span>'.html_safe
-    else
-      '<span class="new badge grey" data-badge-caption="' "#{status.to_s}"+'></span>'.html_safe
-    end
+    style = BADGE_STYLES.fetch(status.to_s, { color: 'grey', label: status.to_s })
+    "<span class=\"new badge #{style[:color]}\" data-badge-caption=\"#{style[:label]}\"></span>".html_safe
   end
 
   def badges_boolean boolean, type = nil

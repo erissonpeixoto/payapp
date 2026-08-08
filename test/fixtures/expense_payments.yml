@@ -3,7 +3,9 @@
 one:
   expense: one
   payment: one
+  value: 100.00
 
 two:
   expense: two
   payment: two
+  value: 50.00

@@ -2,6 +2,8 @@
 
 one:
   salary: 9.99
+  user: one
 
 two:
   salary: 9.99
+  user: two

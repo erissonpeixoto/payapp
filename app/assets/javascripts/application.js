@@ -38,3 +38,7 @@ document.addEventListener('turbolinks:before-visit', function() {
     instance.destroy();
   }
 });
+
+$(document).on('cocoon:after-insert', function(event, insertedItem) {
+  insertedItem.find('.datepicker').datepicker();
+});

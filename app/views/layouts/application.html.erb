@@ -49,6 +49,7 @@
       </nav>
 
       <div class="container">
+        <%= render 'layouts/flash' %>
         <%= yield %>
       </div>
 
@@ -62,6 +63,7 @@
       </footer>
 
     <% else %>
+      <%= render 'layouts/flash' %>
       <%= yield %>
     <% end %>
   </body>

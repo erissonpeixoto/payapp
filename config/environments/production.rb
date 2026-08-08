@@ -1,6 +1,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.hosts << 'payapp.up.railway.app'
+
+  config.active_storage.service = :local
+
   #Devise
   config.action_mailer.default_url_options = { :host => 'payapp.up.railway.app', :protocol => 'http' }
   config.action_mailer.delivery_method = :smtp

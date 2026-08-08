@@ -16,6 +16,10 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore Active Storage's default local disk service.
+/storage/*
+!/storage/.keep
+
 # Ignore .env
 .env.sample
 .env

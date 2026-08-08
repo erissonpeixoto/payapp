@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: payapp_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgresql://postgres:password@localhost:5432/payapp_test
+      DISABLE_SPRING: 1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.5.1'
+          bundler-cache: true
+
+      - name: Set up database
+        run: bin/rails db:schema:load
+
+      - name: Run tests
+        run: bin/rails test
+
+      # test:system fica de fora por ora: falta configurar Chrome/chromedriver
+      # no runner, e no ambiente de dev local (Docker/Debian Stretch) os 3
+      # testes existentes travam o Chrome headless com
+      # "DevToolsActivePort file doesn't exist" (causa raiz não investigada
+      # a fundo ainda). Retomar junto do Hop 3 (Ruby 3.3).

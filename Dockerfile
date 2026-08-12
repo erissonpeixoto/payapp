@@ -1,5 +1,5 @@
 # Use the official Ruby image matching your .ruby-version
-FROM ruby:3.3-slim
+FROM ruby:4.0-slim
 
 # Install essential dependencies. nodejs is required at runtime as the
 # ExecJS/Uglifier JS engine (still used by the asset pipeline) -- planned
@@ -13,11 +13,7 @@ WORKDIR /usr/src/app
 # Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
 
-# Install the Bundler version pinned in Gemfile.lock (the base image ships a different default)
-ENV BUNDLER_VERSION=2.3.26
-RUN gem install bundler -v '2.3.26'
-
-# Install gems
+# Install gems (uses the Bundler bundled by default with this Ruby image)
 RUN bundle install
 
 # Copy the rest of the application code

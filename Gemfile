@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.3.12'
+ruby '4.0.6'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -58,6 +58,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# No longer a default gem bundled with the Ruby install; rake requires it directly.
+gem 'ostruct'
+
 # Materialize Sass version for Rails Asset Pipeline
 #gem 'materialize-sass'
 #gem 'material_icons'
@@ -66,6 +69,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 
 #Create beautiful JavaScript charts with one line of Ruby https://chartkick.com
-gem "chartkick"
+gem "chartkick", "3.4.2"
 
 gem 'dotenv-rails', groups: [:development, :test]

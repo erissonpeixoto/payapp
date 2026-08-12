@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
 
     #chart 3
     #last 6 months
-    @total_value_by_payment = Payment.where(user: current_user).where('payday >= ?', Date.today - 6.months).order(payday: :asc).group(:payday).sum(:value).map {|payday, value| [payday.to_s(:custom_datetime_month_and_year), value.to_d]}.to_h
+    @total_value_by_payment = Payment.where(user: current_user).where('payday >= ?', Date.today - 6.months).order(payday: :asc).group(:payday).sum(:value).map {|payday, value| [payday.to_fs(:custom_datetime_month_and_year), value.to_d]}.to_h
 
   end
 end

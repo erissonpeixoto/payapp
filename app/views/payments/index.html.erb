@@ -43,7 +43,7 @@
     <tbody>
       <% @payments.each do |payment| %>
         <tr>
-          <td><%= payment.payday.to_s(:custom_datetime) %></td>
+          <td><%= payment.payday.to_fs(:custom_datetime) %></td>
           <td><%= number_to_currency(payment.value, unit: "R$ ", separator: ",", delimiter: ".") %></td>
           <td><%= badges(payment.status) %></td>
           <td><%= link_to payment, class: 'btn-floating btn-small waves-effect waves-light blue' do %>

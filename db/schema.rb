@@ -10,52 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_08_02_212015) do
-
+ActiveRecord::Schema[7.0].define(version: 2026_08_02_212015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
   end
 
   create_table "configurations", force: :cascade do |t|
     t.decimal "salary"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
   end
 
   create_table "expense_payments", force: :cascade do |t|
     t.bigint "expense_id"
     t.bigint "payment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.decimal "value", precision: 8, scale: 2
-    t.datetime "paid_at"
+    t.datetime "paid_at", precision: nil
     t.index ["expense_id"], name: "index_expense_payments_on_expense_id"
     t.index ["payment_id"], name: "index_expense_payments_on_payment_id"
   end
 
   create_table "expenses", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "fixed"
     t.integer "category_id"
     t.integer "user_id"
   end
 
   create_table "payments", force: :cascade do |t|
-    t.datetime "payday"
+    t.datetime "payday", precision: nil
     t.decimal "value", precision: 8, scale: 2
     t.integer "status"
     t.text "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
   end
 
@@ -63,9 +62,9 @@ ActiveRecord::Schema.define(version: 2026_08_02_212015) do
     t.bigint "revenue_id"
     t.bigint "payment_id"
     t.decimal "value", precision: 8, scale: 2
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "paid_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "paid_at", precision: nil
     t.index ["payment_id"], name: "index_revenue_payments_on_payment_id"
     t.index ["revenue_id"], name: "index_revenue_payments_on_revenue_id"
   end
@@ -75,8 +74,8 @@ ActiveRecord::Schema.define(version: 2026_08_02_212015) do
     t.boolean "fixed"
     t.bigint "user_id"
     t.bigint "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["category_id"], name: "index_revenues_on_category_id"
     t.index ["user_id"], name: "index_revenues_on_user_id"
   end
@@ -85,15 +84,15 @@ ActiveRecord::Schema.define(version: 2026_08_02_212015) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

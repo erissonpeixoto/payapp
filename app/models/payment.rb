@@ -14,7 +14,7 @@ class Payment < ApplicationRecord
 
   after_save :total_value
 
-  enum status: {
+  enum :status, {
     aberto: 0,
     concluido: 1
   }

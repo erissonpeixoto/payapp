@@ -13,7 +13,9 @@ gem 'rails', '~> 8.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 6.0'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', require: false
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -41,8 +43,8 @@ gem 'will_paginate-materialize'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'capybara', '3.30.0'
-  gem 'selenium-webdriver', '~> 3.142'
+  gem 'capybara', '~> 3.40'
+  gem 'selenium-webdriver', '~> 4.0'
   # No longer a default gem bundled with the Ruby install; capybara requires it directly.
   gem 'matrix'
 end

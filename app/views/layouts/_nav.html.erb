@@ -1,0 +1,66 @@
+<header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur" data-controller="nav-toggle">
+  <div class="mx-auto max-w-5xl px-4">
+    <div class="flex h-16 items-center justify-between gap-4">
+      <%= link_to root_path, class: "flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-ink" do %>
+        <svg class="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path stroke-linecap="round" d="M9.5 15.2c.4 1 1.4 1.6 2.5 1.6 1.4 0 2.5-.8 2.5-2s-1.1-1.7-2.5-2c-1.4-.3-2.5-1-2.5-2s1.1-2 2.5-2c1.1 0 2 .5 2.5 1.4" />
+          <path stroke-linecap="round" d="M12 7.3v1M12 15.7v1.2" />
+        </svg>
+        PayApp
+      <% end %>
+
+      <nav class="hidden items-center gap-6 text-sm text-ink-soft md:flex" aria-label="Principal">
+        <%= link_to 'Dashboard', root_path, class: "hover:text-ink" %>
+        <%= link_to 'Pagamentos', payments_path, class: "hover:text-ink" %>
+        <%= link_to 'Despesas', expenses_path, class: "hover:text-ink" %>
+        <%= link_to 'Receitas', revenues_path, class: "hover:text-ink" %>
+        <%= link_to 'Categorias', categories_path, class: "hover:text-ink" %>
+        <%= link_to 'Configuração', configurations_path, class: "hover:text-ink" %>
+      </nav>
+
+      <div class="hidden items-center gap-3 md:flex">
+        <button type="button" data-controller="theme" data-action="theme#toggle"
+                class="rounded-full p-2 text-ink-soft hover:bg-paper-sunken hover:text-ink" aria-label="Alternar tema claro/escuro">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z" />
+          </svg>
+        </button>
+        <span class="max-w-[16ch] truncate text-xs text-ink-faint" title="<%= current_user.email %>"><%= current_user.email %></span>
+        <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-sm font-medium text-expense hover:underline" %>
+      </div>
+
+      <button type="button" class="rounded-md p-2 text-ink-soft hover:bg-paper-sunken md:hidden"
+              data-nav-toggle-target="button" data-action="nav-toggle#toggle"
+              aria-expanded="false" aria-controls="mobile-nav" aria-label="Abrir menu">
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" data-nav-toggle-target="panel" class="hidden border-t border-line bg-paper md:hidden" aria-label="Principal (mobile)">
+    <div class="flex flex-col gap-1 px-4 py-3 text-sm">
+      <%= link_to 'Dashboard', root_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
+      <%= link_to 'Pagamentos', payments_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
+      <%= link_to 'Despesas', expenses_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
+      <%= link_to 'Receitas', revenues_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
+      <%= link_to 'Categorias', categories_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
+      <%= link_to 'Configuração', configurations_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
+
+      <div class="mt-2 flex items-center justify-between border-t border-line pt-3">
+        <span class="truncate text-xs text-ink-faint"><%= current_user.email %></span>
+        <div class="flex items-center gap-1">
+          <button type="button" data-controller="theme" data-action="theme#toggle"
+                  class="rounded-full p-2 text-ink-soft hover:bg-paper-sunken hover:text-ink" aria-label="Alternar tema claro/escuro">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z" />
+            </svg>
+          </button>
+          <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "px-2 py-2.5 text-sm font-medium text-expense" %>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

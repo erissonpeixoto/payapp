@@ -1,1 +1,74 @@
 @import "tailwindcss";
+
+/*
+ * Design tokens for the "Ledger" direction (see the PayApp Ledger design
+ * doc). Semantic tokens, not raw palette names: dark mode is just these
+ * custom properties getting new values, so every utility built on them
+ * (bg-paper, text-ink, text-expense, ...) adapts automatically without
+ * needing dark: variants sprinkled everywhere.
+ */
+@theme {
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Noto Serif", Georgia, serif;
+  --font-sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Roboto Mono", monospace;
+
+  --color-paper: #f1f4ef;
+  --color-paper-raised: #ffffff;
+  --color-paper-sunken: #e7ebe3;
+  --color-ink: #1a241f;
+  --color-ink-soft: #57635c;
+  --color-ink-faint: #869185;
+  --color-line: rgb(26 36 31 / 13%);
+  --color-line-strong: rgb(26 36 31 / 24%);
+
+  --color-accent: #24475a;
+  --color-accent-tint: #4c7691;
+  --color-accent-contrast: #f1f4ef;
+
+  --color-expense: #9a4a3a;
+  --color-expense-tint: #d9897a;
+  --color-revenue: #3b7259;
+  --color-revenue-tint: #7ec5a2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-paper: #141a17;
+    --color-paper-raised: #1c2420;
+    --color-paper-sunken: #10140f;
+    --color-ink: #e7ece7;
+    --color-ink-soft: #a8b3ab;
+    --color-ink-faint: #6e7a72;
+    --color-line: rgb(231 236 231 / 13%);
+    --color-line-strong: rgb(231 236 231 / 24%);
+
+    --color-accent: #6fa0b8;
+    --color-accent-tint: #4c7691;
+    --color-accent-contrast: #0d1613;
+
+    --color-expense: #e08972;
+    --color-expense-tint: #c2624c;
+    --color-revenue: #8ed2a9;
+    --color-revenue-tint: #57967a;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-paper: #141a17;
+  --color-paper-raised: #1c2420;
+  --color-paper-sunken: #10140f;
+  --color-ink: #e7ece7;
+  --color-ink-soft: #a8b3ab;
+  --color-ink-faint: #6e7a72;
+  --color-line: rgb(231 236 231 / 13%);
+  --color-line-strong: rgb(231 236 231 / 24%);
+
+  --color-accent: #6fa0b8;
+  --color-accent-tint: #4c7691;
+  --color-accent-contrast: #0d1613;
+
+  --color-expense: #e08972;
+  --color-expense-tint: #c2624c;
+  --color-revenue: #8ed2a9;
+  --color-revenue-tint: #57967a;
+}

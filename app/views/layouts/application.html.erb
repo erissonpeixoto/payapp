@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script>
+      // Runs before any CSS paints to avoid a flash of the wrong theme.
+      // The actual toggle lives in app/javascript/controllers/theme_controller.js.
+      (function () {
+        var stored = localStorage.getItem("theme");
+        if (stored) document.documentElement.dataset.theme = stored;
+      })();
+    </script>
     <title>Payapp</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
@@ -15,52 +23,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="flex min-h-screen flex-col bg-paper font-sans text-ink">
     <% if user_signed_in? %>
-      <ul class="sidenav" id="slide-out" data-controller="sidenav">
-        <li><%= "#{"Bem Vindo! "}" + current_user.email if user_signed_in? %></li>
-        <li><%= link_to 'Dashboard', root_path %></li>
-        <li><%= link_to 'Configuração', configurations_path %></li>
-        <li><%= link_to 'Categorias', categories_path %></li>
-        <li><%= link_to 'Despesas', expenses_path %></li>
-        <li><%= link_to 'Receitas', revenues_path %></li>
-        <li><%= link_to 'Pagamentos', payments_path %></li>
-        <li><%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete } %></li>
-      </ul>
-      <nav class="indigo blue">
-        <div class="nav-wrapper">
-          <%= link_to root_path, class: 'brand-logo right' do %>
-            <i class="large material-icons">monetization_on</i> Paguei App
-          <% end %>
-          <a href="#!" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><%= link_to 'Dashboard', root_path %></li>
-            <li><%= link_to 'Configuração', configurations_path %></li>
-            <li><%= link_to 'Categorias', categories_path %></li>
-            <li><%= link_to 'Despesas', expenses_path %></li>
-            <li><%= link_to 'Receitas', revenues_path %></li>
-            <li><%= link_to 'Pagamentos', payments_path %></li>
-            <li><i class="material-icons left">account_circle</i><%= "#{"  Bem Vindo! "}" + current_user.email if user_signed_in? %></li>
-            <li>
-              <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
-                  Sair<i class="material-icons right">exit_to_app</i>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <%= render 'layouts/nav' %>
 
-      <div class="container">
+      <div class="container flex-1">
         <%= render 'layouts/flash' %>
         <%= yield %>
       </div>
 
-      <br>
-      <footer class="page-footer grey lighten-5">
-        <div class="footer-copyright">
-          <div class="container black-text">
+      <footer class="border-t border-line bg-paper-sunken">
+        <div class="mx-auto max-w-5xl px-4 py-4 text-xs text-ink-faint">
           © 2018 GOEP SOFTWARE
-          </div>
         </div>
       </footer>
 

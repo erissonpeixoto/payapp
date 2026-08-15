@@ -1,4 +1,13 @@
 // Entry point compiled by dartsass-rails into app/assets/builds/application.css.
 // Coexists with Tailwind (app/assets/builds/tailwind.css) until every page
 // migrates off Materialize -- see the Fase 4 plan for the removal order.
-@import "css/materialize";
+//
+// Wrapped in its own cascade layer, and this stylesheet loads before
+// tailwind.css in the layout: CSS layers rank by first-seen order, so
+// declaring "materialize" here first gives it the LOWEST priority. Without
+// this, Materialize's un-layered global selectors (bare `nav`, `a`, etc.)
+// would beat Tailwind's utilities regardless of specificity, since
+// un-layered CSS always wins over layered CSS per the cascade layers spec.
+@layer materialize {
+  @import "css/materialize";
+}

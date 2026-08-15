@@ -10,14 +10,14 @@
         PayApp
       <% end %>
 
-      <nav class="hidden items-center gap-6 text-sm text-ink-soft md:flex" aria-label="Principal">
+      <div class="hidden items-center gap-6 text-sm text-ink-soft md:flex" role="navigation" aria-label="Principal">
         <%= link_to 'Dashboard', root_path, class: "hover:text-ink" %>
         <%= link_to 'Pagamentos', payments_path, class: "hover:text-ink" %>
         <%= link_to 'Despesas', expenses_path, class: "hover:text-ink" %>
         <%= link_to 'Receitas', revenues_path, class: "hover:text-ink" %>
         <%= link_to 'Categorias', categories_path, class: "hover:text-ink" %>
         <%= link_to 'Configuração', configurations_path, class: "hover:text-ink" %>
-      </nav>
+      </div>
 
       <div class="hidden items-center gap-3 md:flex">
         <button type="button" data-controller="theme" data-action="theme#toggle"
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <nav id="mobile-nav" data-nav-toggle-target="panel" class="hidden border-t border-line bg-paper md:hidden" aria-label="Principal (mobile)">
+  <div id="mobile-nav" data-nav-toggle-target="panel" class="hidden border-t border-line bg-paper md:hidden" role="navigation" aria-label="Principal (mobile)">
     <div class="flex flex-col gap-1 px-4 py-3 text-sm">
       <%= link_to 'Dashboard', root_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
       <%= link_to 'Pagamentos', payments_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
@@ -62,5 +62,5 @@
         </div>
       </div>
     </div>
-  </nav>
+  </div>
 </header>

@@ -11,8 +11,12 @@
     </script>
     <title>Payapp</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%# Materialize (unlayered globals wrapped in @layer materialize) must load
+        before Tailwind so that layer -- which CSS ranks by first-seen order --
+        registers with the lowest priority; otherwise its bare `nav`, `a`, etc.
+        selectors would beat every Tailwind utility regardless of specificity. %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'materialize_and_charts', 'data-turbo-track': 'reload' %>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 

@@ -16,14 +16,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 6.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-# Serves the legacy Materialize/Sprockets pipeline (JS/CSS/images) that still
-# coexists with Tailwind/importmap until every page migrates. Previously
-# pulled in transitively by sass-rails; now needed explicitly.
+# Serves images (favicon, etc.) through the asset pipeline.
 gem 'sprockets-rails'
-# Compile SCSS via the Dart Sass CLI (no Ruby-language Sass implementation involved)
-gem 'dartsass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
 # Hotwire: SPA-like page updates without writing custom JavaScript (replaces Turbolinks)
 gem 'turbo-rails'
 # Hotwire: modest JavaScript framework for the HTML you already have (replaces jQuery/Cocoon JS)
@@ -69,10 +63,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # No longer a default gem bundled with the Ruby install; rake requires it directly.
 gem 'ostruct'
-
-# Materialize Sass version for Rails Asset Pipeline
-#gem 'materialize-sass'
-#gem 'material_icons'
 
 #Flexible authentication solution for Rails
 gem 'devise'

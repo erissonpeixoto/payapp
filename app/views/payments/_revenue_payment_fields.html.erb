@@ -22,8 +22,7 @@
   </div>
   <div class="mt-2">
     <%= f.label :paid_at, "Recebido em", class: "mb-1 block text-xs font-medium text-ink-soft" %>
-    <%= f.text_field :paid_at,
-        class: "w-32 rounded-md border border-line-strong bg-paper-raised px-2.5 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent",
-        data: { controller: "datepicker" }, value: (f.object.paid_at.strftime('%d/%m/%Y') if f.object.paid_at) %>
+    <%= f.date_field :paid_at,
+        class: "w-40 rounded-md border border-line-strong bg-paper-raised px-2.5 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
   </div>
 </div>

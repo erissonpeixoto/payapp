@@ -19,7 +19,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create payment" do
     assert_difference('Payment.count') do
-      post payments_url, params: { payment: { payday: '01/08/2026', status: 'aberto' } }
+      post payments_url, params: { payment: { payday: '2026-08-01', status: 'aberto' } }
     end
 
     assert_redirected_to payment_url(Payment.last)
@@ -29,13 +29,13 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Payment.count') do
       post payments_url, params: {
         payment: {
-          payday: '01/08/2026',
+          payday: '2026-08-01',
           status: 'aberto',
           expense_payments_attributes: {
-            '0' => { expense_id: expenses(:one).id, value: '100.00', paid_at: '02/08/2026' }
+            '0' => { expense_id: expenses(:one).id, value: '100.00', paid_at: '2026-08-02' }
           },
           revenue_payments_attributes: {
-            '0' => { revenue_id: @revenue.id, value: '250.00', paid_at: '03/08/2026' }
+            '0' => { revenue_id: @revenue.id, value: '250.00', paid_at: '2026-08-03' }
           }
         }
       }
@@ -51,8 +51,8 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     get payments_url, params: {
       status_filter: 'aberto',
       category_id: categories(:two).id,
-      period_start: '01/08/2026',
-      period_end: '01/08/2026'
+      period_start: '2026-08-01',
+      period_end: '2026-08-01'
     }
 
     assert_response :success
@@ -70,7 +70,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update payment" do
-    patch payment_url(@payment), params: { payment: { payday: '01/08/2026', status: 'aberto' } }
+    patch payment_url(@payment), params: { payment: { payday: '2026-08-01', status: 'aberto' } }
     assert_redirected_to payment_url(@payment)
   end
 

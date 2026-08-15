@@ -1,7 +1,8 @@
 // This is a manifest file that'll be compiled into materialize_and_charts.js,
 // which will include all the files listed below. Legacy Sprockets bundle for
-// Materialize + Highcharts/Chartkick; new app code goes in app/javascript
-// (importmap/Stimulus) instead -- see the Fase 4 plan.
+// Materialize only now -- charts moved to Chart.js via importmap/Stimulus
+// (app/javascript/controllers/chart_controller.js), and new app code goes in
+// app/javascript in general -- see the Fase 4 plan.
 //
 // Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
 // or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
@@ -13,6 +14,4 @@
 // about supported directives.
 //
 //= require js/bin/materialize.min.js
-//= require highcharts
-//= require chartkick
 //= require_tree .

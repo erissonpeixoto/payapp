@@ -1,65 +1,69 @@
-<h4>Dashboard</h4>
+<div class="mx-auto max-w-5xl">
+  <div class="mb-6 flex items-center justify-between">
+    <h1 class="font-display text-2xl font-semibold text-ink">Dashboard</h1>
+    <% if @last_user_payment.present? %>
+      <%= link_to "Ver detalhes do último fechamento", @last_user_payment, class: "text-sm font-medium text-accent hover:underline" %>
+    <% end %>
+  </div>
 
-<div class="row">
-  <div class="field col s12 m12">
-    <%= link_to "Ver detalhes",  @last_user_payment %>
+  <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div class="rounded-lg border border-line bg-paper-raised p-4">
+      <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Salário</p>
+      <p class="mt-1 font-mono text-xl tabular-nums text-ink">
+        <%= number_to_currency(@salary, unit: "R$ ", separator: ",", delimiter: ".") %>
+      </p>
+    </div>
+    <div class="rounded-lg border border-line bg-paper-raised p-4">
+      <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Pago no mês</p>
+      <p class="mt-1 font-mono text-xl tabular-nums text-expense">
+        <%= number_to_currency(@total_paid, unit: "R$ ", separator: ",", delimiter: ".") %>
+      </p>
+    </div>
+    <div class="rounded-lg border border-line bg-paper-raised p-4">
+      <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Saldo do mês</p>
+      <p class="mt-1 font-mono text-xl tabular-nums <%= @balance < 0 ? 'text-expense' : 'text-revenue' %>">
+        <%= number_to_currency(@balance, unit: "R$ ", separator: ",", delimiter: ".") %>
+      </p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div class="rounded-lg border border-line bg-paper-raised p-6">
+      <h2 class="mb-4 text-sm font-semibold text-ink">Saldo do mês atual</h2>
+      <div class="h-64">
+        <canvas
+          data-controller="chart"
+          data-chart-type-value="pie"
+          data-chart-labels-value="<%= @balance_chart[:labels].to_json %>"
+          data-chart-data-value="<%= @balance_chart[:data].to_json %>"
+        ></canvas>
+      </div>
+    </div>
+
+    <div class="rounded-lg border border-line bg-paper-raised p-6">
+      <h2 class="mb-4 text-sm font-semibold text-ink">Despesas por categoria no mês atual</h2>
+      <div class="h-64">
+        <canvas
+          data-controller="chart"
+          data-chart-type-value="bar"
+          data-chart-color-value="expense"
+          data-chart-labels-value="<%= @expenses_by_category_chart[:labels].to_json %>"
+          data-chart-data-value="<%= @expenses_by_category_chart[:data].to_json %>"
+        ></canvas>
+      </div>
+    </div>
+
+    <div class="rounded-lg border border-line bg-paper-raised p-6 lg:col-span-2">
+      <h2 class="mb-4 text-sm font-semibold text-ink">Valor pago por mês (últimos 6 meses)</h2>
+      <div class="h-64">
+        <canvas
+          data-controller="chart"
+          data-chart-type-value="line"
+          data-chart-color-value="accent"
+          data-chart-labels-value="<%= @monthly_paid_chart[:labels].to_json %>"
+          data-chart-data-value="<%= @monthly_paid_chart[:data].to_json %>"
+        ></canvas>
+      </div>
+    </div>
   </div>
 </div>
-
-<div class="row">
-  <div class="field col s12 m6">
-    <%= pie_chart @chart_pay_and_balance, colors: @color_chart_pay_and_balance, label: "Valor", prefix: "R$ ", thousands: ".", decimal: ",", library: {
-        title: {text: 'Saldo do Mês atual'},
-        plotOptions: {
-          pie: {
-            dataLabels: {
-              enabled: false
-            },
-            showInLegend: true
-          }
-        }
-      } %>
-  </div>
-  <div class="field col s12 m6">
-    <%= column_chart @payment_of_expenses_by_category, label: "Valor", prefix: "R$ ", thousands: ".", decimal: ",", library: {
-      title: {text: 'Pg. de Despesas por Categoria do Mês atual'},
-      tooltip: {
-        pointFormat: 'Valor: <b>{point.y:.2f}</b>'
-      },
-      yAxis: {
-        title: {
-            text: 'Valor Pago',
-        }
-      },
-      xAxis: {
-        title: {
-            text: 'Categoria da Despesa'
-        }
-      }
-    }%>
-  </div>
-</div>
-
-<div class="row">
-  <div class="field col s12 m12">
-    <%= line_chart @total_value_by_payment, label: "Valor", prefix: "R$ ", thousands: ".", decimal: ",", library: {
-      title: {text: 'Valor Pago por Mês'},
-      tooltip: {
-        pointFormat: 'Valor: <b>{point.y:.2f}</b>'
-      },
-      yAxis: {
-        title: {
-            text: 'Valor Pago',
-        }
-      },
-      xAxis: {
-        title: {
-            text: 'Mês'
-        }
-      }
-    }%>
-  </div>
-</div>
-
-<script type="text/javascript">
-</script>

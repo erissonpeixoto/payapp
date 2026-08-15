@@ -77,7 +77,4 @@ gem 'ostruct'
 #Flexible authentication solution for Rails
 gem 'devise'
 
-#Create beautiful JavaScript charts with one line of Ruby https://chartkick.com
-gem "chartkick", "3.4.2"
-
 gem 'dotenv-rails', groups: [:development, :test]

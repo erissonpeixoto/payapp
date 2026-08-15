@@ -9,5 +9,8 @@ export default class extends Controller {
     const next = root.dataset.theme === "dark" ? "light" : "dark"
     root.dataset.theme = next
     localStorage.setItem("theme", next)
+    // Canvas-drawn charts don't pick up CSS custom property changes on
+    // their own -- tell them to redraw with the new token values.
+    window.dispatchEvent(new CustomEvent("theme:changed"))
   }
 }

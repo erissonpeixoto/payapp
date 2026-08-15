@@ -14,3 +14,15 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+# Rails' inflector only ships rules for :en. Since config.i18n.default_locale
+# is pt-BR (config/application.rb), any `pluralize(count, word)` call resolves
+# its plural under the pt-BR locale by default and silently returns the
+# singular unchanged when no rule is registered for it -- e.g. pluralize(2,
+# "despesa") => "2 despesa" instead of "2 despesas". Most Portuguese nouns
+# used in this app pluralize by simply appending "s", so a single catch-all
+# rule covers them; irregular words (still uncommon here) can add their own
+# `inflect.irregular`/`inflect.plural` rule above this one.
+ActiveSupport::Inflector.inflections(:'pt-BR') do |inflect|
+  inflect.plural(/$/, 's')
+end

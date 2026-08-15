@@ -1,110 +1,54 @@
-<p>
-  <strong>Data Pagamento:</strong>
-  <%= @payment.payday.to_fs(:custom_datetime) %>
-</p>
+<div class="mx-auto max-w-2xl">
+  <%= render "shared/back_header", title: ledger_month_label(@payment.payday), back_path: payments_path %>
 
-<p>
-  <strong>Status:</strong>
-  <%= badges(@payment.status) %>
-</p>
+  <div class="mb-6 rounded-lg border border-line bg-paper-raised p-6">
+    <div class="mb-3 flex items-center justify-between">
+      <%= badges(@payment.status) %>
+      <p class="text-xs text-ink-faint"><%= ledger_period_label(@payment.payday) %></p>
+    </div>
 
-<p>
-  <strong>Observação:</strong>
-  <%= @payment.note %>
-</p>
+    <% net = payment_net(@payment) %>
+    <p class="font-mono text-3xl font-semibold tabular-nums <%= net < 0 ? 'text-expense' : 'text-revenue' %>">
+      <%= net < 0 ? "−" : "+" %><%= number_to_currency(net.abs, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
 
-<p>
-  <strong>Saldo do Pagamento:</strong>
-  <%= @payment.balance_in_percentage.to_s << "%"%>
-</p>
-<div class="progress">
-  <div class="determinate" style="width: <%= @payment.balance_in_percentage.to_s %>%"></div>
-</div>
+    <% if @payment.note.present? %>
+      <p class="mt-2 text-sm text-ink-soft"><%= @payment.note %></p>
+    <% end %>
 
-<hr>
-
-<div class="row">
-  <div class="col s12 m6">
-    <h4 class="header red-text text-lighten-1 center-align">Lista de Despesas</h4>
-    <ul class="collection">
-      <% @payment.expense_payments.each do |expense_payment| %>
-        <li class="collection-item">
-          <div class="row" style="margin-bottom: 0;">
-            <div class="col s8">
-              <span class="title" style="font-weight: bold;"><%= expense_payment.expense.name %></span>
-              <p style="margin: 0;"><%= expense_payment.expense.category.name %></p>
-            </div>
-            <div class="col s4 right-align red-text">
-              <%= number_to_currency(expense_payment.value, unit: "R$ ", separator: ",", delimiter: ".") %>
-            </div>
-            <div class="col s12">
-              Fixo: <%= badges_boolean(expense_payment.expense.fixed, :expense) %>
-            </div>
-            <% if expense_payment.paid_at %>
-              <div class="col s12" style="margin-top: 5px;">
-                Pago em: <%= expense_payment.paid_at.strftime('%d/%m/%Y') %>
-              </div>
-            <% end %>
-          </div>
-        </li>
-      <% end %>
-      <li class="collection-item">
-        <div>
-          <strong>Valor Total (despesas):</strong>
-          <span class="secondary-content red-text bold">
-            <strong>
-              <%= number_to_currency(@payment.expense_payments.sum(:value), unit: "R$ ", separator: ",", delimiter: ".") %>
-            </strong>
-          </span>
-        </div>
-      </li>
-    </ul>
+    <div class="mt-4 flex items-center gap-3">
+      <%= link_to "Editar fechamento", edit_payment_path(@payment), class: "rounded-md border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-paper-sunken" %>
+      <%= link_to "Excluir fechamento", @payment,
+          data: { turbo_method: :delete, turbo_confirm: destroy_payment_confirm(@payment) },
+          class: "rounded-md border border-expense-tint/40 px-4 py-2 text-sm font-medium text-expense hover:bg-expense-tint/10" %>
+    </div>
   </div>
 
-  <div class="col s12 m6">
-    <h4 class="header green-text text-lighten-1 center-align">Lista de Receitas</h4>
-    <ul class="collection">
-      <% @payment.revenue_payments.each do |revenue_payment| %>
-        <li class="collection-item">
-          <div class="row" style="margin-bottom: 0;">
-            <div class="col s8">
-              <span class="title" style="font-weight: bold;"><%= revenue_payment.revenue.name %></span>
-              <p style="margin: 0;"><%= revenue_payment.revenue.category.name %></p>
-            </div>
-            <div class="col s4 right-align green-text">
-              <%= number_to_currency(revenue_payment.value, unit: "R$ ", separator: ",", delimiter: ".") %>
-            </div>
-            <div class="col s12">
-              Fixo: <%= badges_boolean(revenue_payment.revenue.fixed, :revenue) %>
-            </div>
-            <% if revenue_payment.paid_at %>
-              <div class="col s12" style="margin-top: 5px;">
-                Recebido em: <%= revenue_payment.paid_at.strftime('%d/%m/%Y') %>
-              </div>
-            <% end %>
-          </div>
-        </li>
-      <% end %>
-      <li class="collection-item">
-        <div>
-          <strong>Valor Total (receitas):</strong>
-          <span class="secondary-content green-text bold">
-            <strong>
-              <%= number_to_currency(@payment.revenue_payments.sum(:value), unit: "R$ ", separator: ",", delimiter: ".") %>
-            </strong>
-          </span>
-        </div>
-      </li>
-    </ul>
+  <div class="mb-2 flex items-center justify-between">
+    <h2 class="text-xs font-bold uppercase tracking-wide text-expense">Despesas</h2>
+    <p class="font-mono text-xs tabular-nums text-ink-soft">
+      <%= number_to_currency(@payment.expense_payments.sum(:value), unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
   </div>
+  <% if @payment.expense_payments.any? %>
+    <div class="mb-6 rounded-lg border border-line bg-paper-raised px-4">
+      <%= render partial: "expense_payments/row", collection: @payment.expense_payments, as: :expense_payment %>
+    </div>
+  <% else %>
+    <div class="mb-6"><%= render "shared/empty_state", title: "Nenhuma despesa neste fechamento." %></div>
+  <% end %>
+
+  <div class="mb-2 flex items-center justify-between">
+    <h2 class="text-xs font-bold uppercase tracking-wide text-revenue">Receitas</h2>
+    <p class="font-mono text-xs tabular-nums text-ink-soft">
+      <%= number_to_currency(@payment.revenue_payments.sum(:value), unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+  </div>
+  <% if @payment.revenue_payments.any? %>
+    <div class="rounded-lg border border-line bg-paper-raised px-4">
+      <%= render partial: "revenue_payments/row", collection: @payment.revenue_payments, as: :revenue_payment %>
+    </div>
+  <% else %>
+    <%= render "shared/empty_state", title: "Nenhuma receita neste fechamento." %>
+  <% end %>
 </div>
-
-<hr>
-
-<p class="right-align bold">
-  <strong>Saldo Total (pagamento):</strong>
-  <%= number_to_currency(@payment.value, unit: "R$ ", separator: ",", delimiter: ".") %>
-</p>
-
-<%= link_to 'Editar', edit_payment_path(@payment), class: 'waves-effect waves-light btn blue-grey' %> |
-<%= link_to 'Voltar', payments_path, class: 'waves-effect waves-light btn blue-grey' %>

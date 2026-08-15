@@ -1,16 +1,16 @@
 module ApplicationHelper
 
-  BADGE_STYLES = {
-    'aberto'    => { color: 'red',    label: 'aberto' },
-    'concluido' => { color: 'green',  label: 'concluído' }
+  CHIP_CLASSES = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
+
+  STATUS_CHIP_STYLES = {
+    'aberto'    => { classes: "bg-accent-tint/15 text-accent", label: 'Aberto' },
+    'concluido' => { classes: "bg-revenue-tint/15 text-revenue", label: 'Concluído' },
   }.freeze
 
-  def badges status
-    style = BADGE_STYLES.fetch(status.to_s, { color: 'grey', label: status.to_s })
-    "<span class=\"new badge #{style[:color]}\" data-badge-caption=\"#{style[:label]}\"></span>".html_safe
+  def badges(status)
+    style = STATUS_CHIP_STYLES.fetch(status.to_s, { classes: "bg-paper-sunken text-ink-soft", label: status.to_s })
+    content_tag(:span, style[:label], class: "#{CHIP_CLASSES} #{style[:classes]}")
   end
-
-  CHIP_CLASSES = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
 
   # `type` no longer changes the color (it used to pick blue vs. green) --
   # kept only so the pre-redesign payments/show.html.erb call sites

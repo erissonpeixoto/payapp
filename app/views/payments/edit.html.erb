@@ -1,6 +1,4 @@
-<h4>Editar Pagamento</h4>
-
-<%= render 'form', payment: @payment %>
-
-<%= link_to 'Visualizar', @payment, class: 'waves-effect waves-light btn blue-grey'%> |
-<%= link_to 'Voltar', payments_path, class: 'waves-effect waves-light btn blue-grey' %>
+<div class="mx-auto max-w-2xl">
+  <%= render "shared/back_header", title: "Editar fechamento", back_path: payment_path(@payment) %>
+  <%= render "form", payment: @payment %>
+</div>

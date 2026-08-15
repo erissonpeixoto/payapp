@@ -1,26 +1,29 @@
-<div class="nested-fields" data-new-record="<%= f.object.new_record? %>">
+<div class="nested-fields rounded-md border border-line p-3" data-new-record="<%= f.object.new_record? %>">
   <%= f.hidden_field :_destroy %>
-  <div class="row">
-    <div class="input-field col s7">
-      <%= f.label :revenue, class: 'active' %>
+  <div class="flex items-end gap-2">
+    <div class="min-w-0 flex-1">
+      <%= f.label :revenue_id, "Receita", class: "mb-1 block text-xs font-medium text-ink-soft" %>
       <%= f.select :revenue_id,
-          options_from_collection_for_select(Revenue.where(user: current_user).order(:name), :id, :name, f.object.revenue_id ),
-          { :include_blank => 'Selecione' }, { :class => 'browser-default' } %>
+          options_from_collection_for_select(Revenue.where(user: current_user).order(:name), :id, :name, f.object.revenue_id),
+          { include_blank: "Selecione" },
+          class: "block w-full rounded-md border border-line-strong bg-paper-raised px-2.5 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
     </div>
-    <div class="input-field col s3">
-      <%= f.label :value, class: 'active' %>
-      <%= f.number_field :value, step: :any %>
+    <div class="w-28 shrink-0">
+      <%= f.label :value, "Valor", class: "mb-1 block text-xs font-medium text-ink-soft" %>
+      <%= f.number_field :value, step: :any, class: "block w-full rounded-md border border-line-strong bg-paper-raised px-2.5 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
     </div>
-    <div class="input-field col s2">
-      <button type="button" class="btn-floating btn-small waves-effect waves-light red" data-action="nested-form#remove">
-        <i class="material-icons">delete</i>
-      </button>
-    </div>
+    <button type="button"
+        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-line text-revenue hover:bg-revenue-tint/10"
+        data-action="nested-form#remove" aria-label="Remover receita">
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M9 6V4h6v2m-8 0l1 14h8l1-14" />
+      </svg>
+    </button>
   </div>
-  <div class="row">
-    <div class="input-field col s6">
-      <%= f.label :paid_at, class: 'active' %>
-      <%= f.text_field :paid_at, class: 'datepicker', data: { controller: 'datepicker' }, value: (f.object.paid_at.strftime('%d/%m/%Y') if f.object.paid_at) %>
-    </div>
+  <div class="mt-2">
+    <%= f.label :paid_at, "Recebido em", class: "mb-1 block text-xs font-medium text-ink-soft" %>
+    <%= f.text_field :paid_at,
+        class: "w-32 rounded-md border border-line-strong bg-paper-raised px-2.5 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent",
+        data: { controller: "datepicker" }, value: (f.object.paid_at.strftime('%d/%m/%Y') if f.object.paid_at) %>
   </div>
 </div>

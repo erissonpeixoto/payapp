@@ -1,0 +1,21 @@
+<%= turbo_frame_tag expense_payment do %>
+  <div class="flex items-center gap-3 border-b border-line py-2.5 last:border-b-0">
+    <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-expense-tint/15 text-expense">
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M14 6l6 6-6 6" />
+      </svg>
+    </div>
+    <div class="min-w-0 flex-1">
+      <p class="truncate text-sm font-semibold text-ink"><%= expense_payment.expense.name %></p>
+      <p class="truncate text-xs text-ink-faint"><%= expense_payment.expense.category.try(:name) || "Sem categoria" %></p>
+    </div>
+    <p class="shrink-0 whitespace-nowrap font-mono text-sm font-semibold tabular-nums text-expense">
+      <%= number_to_currency(expense_payment.value, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+    <%= button_to paid_chip_label(expense_payment.paid_at, :expense),
+        payment_expense_payment_path(expense_payment.payment, expense_payment),
+        method: :patch,
+        form_class: "inline-flex shrink-0",
+        class: paid_chip_classes(expense_payment.paid_at) %>
+  </div>
+<% end %>

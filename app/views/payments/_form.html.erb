@@ -1,104 +1,81 @@
+<%= render "shared/form_errors", record: payment %>
+
 <%= form_for(payment) do |f| %>
-  <% if payment.errors.any? %>
-    <div class="row">
-      <div class="col s12 m12">
-        <div class="card-panel red">
-          <span id="notice" class="white-text">
-            <i class="material-icons">error</i>
-            <%= pluralize(payment.errors.count, "erro(s)") %> Não foi possível salvar:
-            <ul>
-              <% payment.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </span>
-        </div>
-      </div>
+  <div class="mb-6 grid grid-cols-2 gap-4">
+    <div>
+      <%= f.label :payday, "Data do fechamento", class: "mb-1 block text-sm font-medium text-ink" %>
+      <%= f.text_field :payday,
+          class: "w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent",
+          data: { controller: "datepicker" }, value: (f.object.payday.strftime('%d/%m/%Y') if f.object.payday) %>
     </div>
-  <% end %>  
-
-  <div class="row">
-    <div class="input-field col s6">
-      <%= f.label :payday, class: 'active' %>
-      <%= f.text_field :payday, class: 'datepicker', data: { controller: 'datepicker' }, value: (f.object.payday.strftime('%d/%m/%Y') if f.object.payday) %>
-    </div>
-
-    <div class="input-field col s6">
-      <%= f.label :status, class: 'active' %>
-      <%= f.select :status, Payment.statuses.keys.to_a, { :include_blank => 'Selecione' }, { :class => 'browser-default' } %>
-    </div>  
-  </div>
-
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">mode_edit</i>
-      <%= f.label :note, class: 'active' %>
-      <%= f.text_field :note %>
-    </div>
-  </div> 
-
-  <% if payment.persisted? && payment.expenses_fixed_not_used.any?%>
-  <div class="row">
-    <div class="col s12 m12">
-      <div class="card-panel yellow lighten-2">
-        <span class="black-text" style="display: flex; align-items: center;">
-          <i class="material-icons left">info_outline</i>
-          <strong>Despesas fixas ainda não pagas:</strong>
-        </span>
-        <div style="margin-top: 10px; padding-left: 40px;">
-          <% payment.expenses_fixed_not_used.each do |expense| %>
-            <div class="chip">
-              <%= expense.name %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+    <div>
+      <%= f.label :status, "Status", class: "mb-1 block text-sm font-medium text-ink" %>
+      <%= f.select :status, Payment.statuses.keys.to_a, { include_blank: "Selecione" },
+          class: "block w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
     </div>
   </div>
+
+  <div class="mb-6">
+    <%= f.label :note, "Observação", class: "mb-1 block text-sm font-medium text-ink" %>
+    <%= f.text_field :note, class: "w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
+  </div>
+
+  <% if payment.persisted? && payment.expenses_fixed_not_used.any? %>
+    <div class="mb-6 rounded-md border border-dashed border-line-strong bg-paper-sunken p-4">
+      <p class="mb-2 flex items-center gap-2 text-sm font-medium text-ink">
+        <svg class="h-4 w-4 shrink-0 text-ink-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" /><path stroke-linecap="round" d="M12 8v5M12 16h.01" />
+        </svg>
+        Despesas fixas ainda não pagas
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <% payment.expenses_fixed_not_used.each do |expense| %>
+          <span class="inline-flex items-center rounded-full border border-line bg-paper-raised px-2.5 py-1 text-xs text-ink-soft"><%= expense.name %></span>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 
-  <fieldset data-controller="nested-form">
-    <legend><strong>Despesas</strong></legend>
+  <fieldset data-controller="nested-form" class="mb-6 p-0">
+    <legend class="mb-2 text-xs font-bold uppercase tracking-wide text-expense">Despesas</legend>
     <template data-nested-form-target="template">
-      <%= f.fields_for :expense_payments, ExpensePayment.new, child_index: 'NEW_RECORD' do |expense_payments_fields| %>
+      <%= f.fields_for :expense_payments, ExpensePayment.new, child_index: "NEW_RECORD" do |expense_payments_fields| %>
         <%= render partial: "expense_payment_fields", locals: { f: expense_payments_fields } %>
       <% end %>
     </template>
-    <div id="expense_payments" data-nested-form-target="list">
+    <div class="space-y-2" data-nested-form-target="list">
       <%= f.fields_for :expense_payments, payment.expense_payments do |expense_payments_fields| %>
         <%= render partial: "expense_payment_fields", locals: { f: expense_payments_fields } %>
       <% end %>
     </div>
-    <span>Adicione suas despesas</span>
-    <button type="button" class="btn-floating btn-small waves-effect waves-light blue" data-action="nested-form#add">
-      <i class="material-icons">add</i>
+    <button type="button"
+        class="mt-2 w-full rounded-md border border-dashed border-line-strong px-4 py-2.5 text-sm font-medium text-expense hover:bg-paper-sunken"
+        data-action="nested-form#add">
+      + Adicionar despesa
     </button>
   </fieldset>
-  <br>
 
-  <fieldset data-controller="nested-form">
-    <legend><strong>Receitas</strong></legend>
+  <fieldset data-controller="nested-form" class="mb-6 p-0">
+    <legend class="mb-2 text-xs font-bold uppercase tracking-wide text-revenue">Receitas</legend>
     <template data-nested-form-target="template">
-      <%= f.fields_for :revenue_payments, RevenuePayment.new, child_index: 'NEW_RECORD' do |revenue_payments_fields| %>
+      <%= f.fields_for :revenue_payments, RevenuePayment.new, child_index: "NEW_RECORD" do |revenue_payments_fields| %>
         <%= render partial: "revenue_payment_fields", locals: { f: revenue_payments_fields } %>
       <% end %>
     </template>
-    <div id="revenue_payments" data-nested-form-target="list">
+    <div class="space-y-2" data-nested-form-target="list">
       <%= f.fields_for :revenue_payments, payment.revenue_payments do |revenue_payments_fields| %>
         <%= render partial: "revenue_payment_fields", locals: { f: revenue_payments_fields } %>
       <% end %>
     </div>
-    <span>Adicione suas receitas</span>
-    <button type="button" class="btn-floating btn-small waves-effect waves-light blue" data-action="nested-form#add">
-      <i class="material-icons">add</i>
+    <button type="button"
+        class="mt-2 w-full rounded-md border border-dashed border-line-strong px-4 py-2.5 text-sm font-medium text-revenue hover:bg-paper-sunken"
+        data-action="nested-form#add">
+      + Adicionar receita
     </button>
   </fieldset>
-  <br>
 
-  <div class="actions">
-    <button class="btn waves-effect waves-light" type="submit" name="action">
-      Salvar<i class="material-icons right">save</i>
-    </button>
+  <div class="sticky bottom-0 flex items-center gap-3 border-t border-line bg-paper/95 py-3 backdrop-blur">
+    <%= link_to "Cancelar", payments_path, class: "rounded-md border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-paper-sunken" %>
+    <%= f.submit "Salvar fechamento", class: "flex-1 cursor-pointer rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint sm:flex-none" %>
   </div>
-  <br>
 <% end %>

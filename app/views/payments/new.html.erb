@@ -1,5 +1,4 @@
-<h4>Novo Pagamento</h4>
-
-<%= render 'form', payment: @payment %>
-
-<%= link_to 'Voltar', payments_path, class: 'waves-effect waves-light btn blue-grey' %>
+<div class="mx-auto max-w-2xl">
+  <%= render "shared/back_header", title: "Novo fechamento", back_path: payments_path %>
+  <%= render "form", payment: @payment %>
+</div>

@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :configurations
   resources :categories
-  resources :payments
+  resources :payments do
+    resources :expense_payments, only: [:update]
+    resources :revenue_payments, only: [:update]
+  end
   resources :expenses
   resources :revenues
   

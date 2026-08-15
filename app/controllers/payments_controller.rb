@@ -23,7 +23,8 @@ class PaymentsController < ApplicationController
       @payments = @payments.where('payday <= ?', end_date.end_of_day) if end_date
     end
 
-    @payments = @payments.order(payday: :desc).paginate(:page => params[:page], :per_page => 5)
+    @payments = @payments.includes(:expense_payments, :revenue_payments)
+      .order(payday: :desc).paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /payments/1

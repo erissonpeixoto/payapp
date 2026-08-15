@@ -56,7 +56,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :success
-    assert_select 'tbody tr', count: 1
+    assert_select 'article', count: 1
   end
 
   test "should show payment" do

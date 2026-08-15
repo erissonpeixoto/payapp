@@ -1,32 +1,34 @@
-<div class="mb-6 flex items-center justify-between">
-  <div>
-    <h1 class="font-display text-2xl font-semibold text-ink">Receitas</h1>
-    <p class="text-xs text-ink-faint"><%= pluralize(@revenues.total_entries, "receita") %></p>
+<div class="mx-auto max-w-2xl">
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h1 class="font-display text-2xl font-semibold text-ink">Receitas</h1>
+      <p class="text-xs text-ink-faint"><%= pluralize(@revenues.total_entries, "receita") %></p>
+    </div>
+    <%= link_to 'Nova receita', new_revenue_path, class: "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint" %>
   </div>
-  <%= link_to 'Nova receita', new_revenue_path, class: "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint" %>
-</div>
 
-<% if @revenues.any? %>
-  <div class="divide-y divide-line rounded-lg border border-line bg-paper-raised">
-    <% @revenues.each do |revenue| %>
-      <%= link_to revenue, class: "flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper-sunken" do %>
-        <span class="min-w-0">
-          <span class="block truncate text-sm text-ink"><%= revenue.name %></span>
-          <span class="block text-xs text-ink-faint"><%= revenue.try(:category).try(:name) || "Sem categoria" %></span>
-        </span>
-        <span class="flex shrink-0 items-center gap-3">
-          <% if revenue.fixed %>
-            <span class="inline-flex items-center rounded-full bg-revenue-tint/15 px-2.5 py-0.5 text-xs font-semibold text-revenue">Fixa</span>
-          <% end %>
-          <svg class="h-5 w-5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
-          </svg>
-        </span>
+  <% if @revenues.any? %>
+    <div class="divide-y divide-line rounded-lg border border-line bg-paper-raised">
+      <% @revenues.each do |revenue| %>
+        <%= link_to revenue, class: "flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper-sunken" do %>
+          <span class="min-w-0">
+            <span class="block truncate text-sm text-ink"><%= revenue.name %></span>
+            <span class="block text-xs text-ink-faint"><%= revenue.try(:category).try(:name) || "Sem categoria" %></span>
+          </span>
+          <span class="flex shrink-0 items-center gap-3">
+            <% if revenue.fixed %>
+              <span class="inline-flex items-center rounded-full bg-revenue-tint/15 px-2.5 py-0.5 text-xs font-semibold text-revenue">Fixa</span>
+            <% end %>
+            <svg class="h-5 w-5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+            </svg>
+          </span>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
 
-  <%= will_paginate @revenues, renderer: "TailwindPaginationRenderer" %>
-<% else %>
-  <%= render "shared/empty_state", title: "Nenhuma receita cadastrada ainda." %>
-<% end %>
+    <%= will_paginate @revenues, renderer: "TailwindPaginationRenderer" %>
+  <% else %>
+    <%= render "shared/empty_state", title: "Nenhuma receita cadastrada ainda." %>
+  <% end %>
+</div>

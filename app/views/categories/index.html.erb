@@ -1,24 +1,26 @@
-<div class="mb-6 flex items-center justify-between">
-  <div>
-    <h1 class="font-display text-2xl font-semibold text-ink">Categorias</h1>
-    <p class="text-xs text-ink-faint"><%= pluralize(@categories.total_entries, "categoria") %></p>
+<div class="mx-auto max-w-2xl">
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h1 class="font-display text-2xl font-semibold text-ink">Categorias</h1>
+      <p class="text-xs text-ink-faint"><%= pluralize(@categories.total_entries, "categoria") %></p>
+    </div>
+    <%= link_to 'Nova categoria', new_category_path, class: "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint" %>
   </div>
-  <%= link_to 'Nova categoria', new_category_path, class: "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint" %>
-</div>
 
-<% if @categories.any? %>
-  <div class="divide-y divide-line rounded-lg border border-line bg-paper-raised">
-    <% @categories.each do |category| %>
-      <%= link_to category, class: "flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper-sunken" do %>
-        <span class="text-sm text-ink"><%= category.name %></span>
-        <svg class="h-5 w-5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
-        </svg>
+  <% if @categories.any? %>
+    <div class="divide-y divide-line rounded-lg border border-line bg-paper-raised">
+      <% @categories.each do |category| %>
+        <%= link_to category, class: "flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper-sunken" do %>
+          <span class="text-sm text-ink"><%= category.name %></span>
+          <svg class="h-5 w-5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+          </svg>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
 
-  <%= will_paginate @categories, renderer: "TailwindPaginationRenderer" %>
-<% else %>
-  <%= render "shared/empty_state", title: "Nenhuma categoria cadastrada ainda." %>
-<% end %>
+    <%= will_paginate @categories, renderer: "TailwindPaginationRenderer" %>
+  <% else %>
+    <%= render "shared/empty_state", title: "Nenhuma categoria cadastrada ainda." %>
+  <% end %>
+</div>

@@ -1,13 +1,15 @@
-<%= render "shared/back_header", title: "Configuração", back_path: configurations_path %>
+<div class="mx-auto max-w-2xl">
+  <%= render "shared/back_header", title: "Configuração", back_path: configurations_path %>
 
-<div class="rounded-lg border border-line bg-paper-raised p-6">
-  <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Salário</p>
-  <p class="mt-1 font-mono text-2xl tabular-nums text-ink">
-    <%= number_to_currency(@configuration.salary, unit: "R$ ", separator: ",", delimiter: ".") %>
-  </p>
-</div>
+  <div class="rounded-lg border border-line bg-paper-raised p-6">
+    <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Salário</p>
+    <p class="mt-1 font-mono text-2xl tabular-nums text-ink">
+      <%= number_to_currency(@configuration.salary, unit: "R$ ", separator: ",", delimiter: ".") %>
+    </p>
+  </div>
 
-<div class="mt-6 flex items-center gap-3">
-  <%= link_to "Editar configuração", edit_configuration_path(@configuration), class: "rounded-md border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-paper-sunken" %>
-  <%= link_to "Excluir configuração", @configuration, data: { turbo_method: :delete, turbo_confirm: "Excluir esta configuração?" }, class: "rounded-md border border-expense-tint/40 px-4 py-2 text-sm font-medium text-expense hover:bg-expense-tint/10" %>
+  <div class="mt-6 flex items-center gap-3">
+    <%= link_to "Editar configuração", edit_configuration_path(@configuration), class: "rounded-md border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-paper-sunken" %>
+    <%= link_to "Excluir configuração", @configuration, data: { turbo_method: :delete, turbo_confirm: "Excluir esta configuração?" }, class: "rounded-md border border-expense-tint/40 px-4 py-2 text-sm font-medium text-expense hover:bg-expense-tint/10" %>
+  </div>
 </div>

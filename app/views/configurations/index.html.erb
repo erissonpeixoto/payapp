@@ -1,23 +1,25 @@
-<div class="mb-6 flex items-center justify-between">
-  <h1 class="font-display text-2xl font-semibold text-ink">Configuração</h1>
-  <% unless @configurations.any? %>
-    <%= link_to 'Nova configuração', new_configuration_path, class: "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint" %>
-  <% end %>
-</div>
-
-<% if @configurations.any? %>
-  <div class="divide-y divide-line rounded-lg border border-line bg-paper-raised">
-    <% @configurations.each do |configuration| %>
-      <%= link_to configuration, class: "flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper-sunken" do %>
-        <span class="font-mono text-sm tabular-nums text-ink">
-          <%= number_to_currency(configuration.salary, unit: "R$ ", separator: ",", delimiter: ".") %>
-        </span>
-        <svg class="h-5 w-5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
-        </svg>
-      <% end %>
+<div class="mx-auto max-w-2xl">
+  <div class="mb-6 flex items-center justify-between">
+    <h1 class="font-display text-2xl font-semibold text-ink">Configuração</h1>
+    <% unless @configurations.any? %>
+      <%= link_to 'Nova configuração', new_configuration_path, class: "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint" %>
     <% end %>
   </div>
-<% else %>
-  <%= render "shared/empty_state", title: "Você ainda não configurou seu salário." %>
-<% end %>
+
+  <% if @configurations.any? %>
+    <div class="divide-y divide-line rounded-lg border border-line bg-paper-raised">
+      <% @configurations.each do |configuration| %>
+        <%= link_to configuration, class: "flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper-sunken" do %>
+          <span class="font-mono text-sm tabular-nums text-ink">
+            <%= number_to_currency(configuration.salary, unit: "R$ ", separator: ",", delimiter: ".") %>
+          </span>
+          <svg class="h-5 w-5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+          </svg>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <%= render "shared/empty_state", title: "Você ainda não configurou seu salário." %>
+  <% end %>
+</div>

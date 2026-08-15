@@ -11,12 +11,12 @@
     <%= f.select :category_id,
         options_from_collection_for_select(Category.where(user: current_user).order(:name), :id, :name, f.object.category_id),
         { include_blank: 'Selecione' },
-        class: "w-full max-w-sm rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
+        class: "block w-full max-w-sm rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
   </div>
 
   <div class="mb-6">
     <label class="flex items-center gap-2 text-sm text-ink">
-      <%= f.check_box :fixed, class: "h-4 w-4 rounded border-line-strong text-accent focus:ring-accent" %>
+      <%= f.check_box :fixed, class: "static h-4 w-4 shrink-0 rounded border-line-strong text-accent opacity-100 focus:ring-accent" %>
       Receita fixa (se repete todo mês)
     </label>
   </div>

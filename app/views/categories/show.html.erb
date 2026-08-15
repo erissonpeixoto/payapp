@@ -1,11 +1,13 @@
-<%= render "shared/back_header", title: "Categoria", back_path: categories_path %>
+<div class="mx-auto max-w-2xl">
+  <%= render "shared/back_header", title: "Categoria", back_path: categories_path %>
 
-<div class="rounded-lg border border-line bg-paper-raised p-6">
-  <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Nome</p>
-  <p class="mt-1 text-lg text-ink"><%= @category.name %></p>
-</div>
+  <div class="rounded-lg border border-line bg-paper-raised p-6">
+    <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Nome</p>
+    <p class="mt-1 text-lg text-ink"><%= @category.name %></p>
+  </div>
 
-<div class="mt-6 flex items-center gap-3">
-  <%= link_to "Editar categoria", edit_category_path(@category), class: "rounded-md border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-paper-sunken" %>
-  <%= link_to "Excluir categoria", @category, data: { turbo_method: :delete, turbo_confirm: "Excluir a categoria \"#{@category.name}\"?" }, class: "rounded-md border border-expense-tint/40 px-4 py-2 text-sm font-medium text-expense hover:bg-expense-tint/10" %>
+  <div class="mt-6 flex items-center gap-3">
+    <%= link_to "Editar categoria", edit_category_path(@category), class: "rounded-md border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-paper-sunken" %>
+    <%= link_to "Excluir categoria", @category, data: { turbo_method: :delete, turbo_confirm: "Excluir a categoria \"#{@category.name}\"?" }, class: "rounded-md border border-expense-tint/40 px-4 py-2 text-sm font-medium text-expense hover:bg-expense-tint/10" %>
+  </div>
 </div>

@@ -31,7 +31,7 @@
     <% if user_signed_in? %>
       <%= render 'layouts/nav' %>
 
-      <div class="container flex-1 px-4 py-6 sm:px-6">
+      <div class="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6">
         <%= render 'layouts/flash' %>
         <%= yield %>
       </div>
@@ -43,8 +43,20 @@
       </footer>
 
     <% else %>
-      <%= render 'layouts/flash' %>
-      <%= yield %>
+      <div class="flex flex-1 flex-col items-center justify-center px-4 py-12">
+        <%= link_to root_path, class: "mb-8 flex items-center gap-2 font-display text-xl font-semibold text-ink" do %>
+          <svg class="h-7 w-7 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path stroke-linecap="round" d="M9.5 15.2c.4 1 1.4 1.6 2.5 1.6 1.4 0 2.5-.8 2.5-2s-1.1-1.7-2.5-2c-1.4-.3-2.5-1-2.5-2s1.1-2 2.5-2c1.1 0 2 .5 2.5 1.4" />
+            <path stroke-linecap="round" d="M12 7.3v1M12 15.7v1.2" />
+          </svg>
+          PayApp
+        <% end %>
+        <div class="w-full max-w-sm">
+          <%= render 'layouts/flash' %>
+          <%= yield %>
+        </div>
+      </div>
     <% end %>
   </body>
 </html>

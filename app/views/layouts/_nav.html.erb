@@ -26,7 +26,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z" />
           </svg>
         </button>
-        <span class="max-w-[16ch] truncate text-xs text-ink-faint" title="<%= current_user.email %>"><%= current_user.email %></span>
+        <%= link_to current_user.email, edit_user_registration_path,
+            class: "max-w-[16ch] truncate text-xs text-ink-faint hover:text-ink hover:underline", title: current_user.email %>
         <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-sm font-medium text-expense hover:underline" %>
       </div>
 
@@ -50,7 +51,8 @@
       <%= link_to 'Configuração', configurations_path, data: { action: "nav-toggle#close" }, class: "rounded-md px-2 py-2.5 text-ink-soft hover:bg-paper-sunken hover:text-ink" %>
 
       <div class="mt-2 flex items-center justify-between border-t border-line pt-3">
-        <span class="truncate text-xs text-ink-faint"><%= current_user.email %></span>
+        <%= link_to current_user.email, edit_user_registration_path,
+            data: { action: "nav-toggle#close" }, class: "truncate text-xs text-ink-faint hover:text-ink hover:underline" %>
         <div class="flex items-center gap-1">
           <button type="button" data-controller="theme" data-action="theme#toggle"
                   class="rounded-full p-2 text-ink-soft hover:bg-paper-sunken hover:text-ink" aria-label="Alternar tema claro/escuro">

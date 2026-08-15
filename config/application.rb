@@ -26,6 +26,11 @@ module Payapp
 
     #para resolver o problema dos icones nos input depois de validação
     config.action_view.field_error_proc = Proc.new {| html_tag, instance | html_tag}
-    
+
+    # Materialize's vendored SCSS uses old Sass APIs (map-get, color(), lighten/
+    # darken) that Dart Sass only warns about for now -- silence dependency
+    # warnings so real build errors don't get lost in the noise. Materialize
+    # itself is slated for removal later in the Fase 4 plan.
+    config.dartsass.build_options << "--quiet-deps"
   end
 end

@@ -20,7 +20,7 @@
   <div class="row">
     <div class="input-field col s6">
       <%= f.label :payday, class: 'active' %>
-      <%= f.text_field :payday, class: 'datepicker', value: (f.object.payday.strftime('%d/%m/%Y') if f.object.payday) %>
+      <%= f.text_field :payday, class: 'datepicker', data: { controller: 'datepicker' }, value: (f.object.payday.strftime('%d/%m/%Y') if f.object.payday) %>
     </div>
 
     <div class="input-field col s6">
@@ -57,31 +57,41 @@
   </div>
   <% end %>
 
-  <fieldset>
+  <fieldset data-controller="nested-form">
     <legend><strong>Despesas</strong></legend>
-    <div id="expense_payments">
-      <span>Adicione suas despesas</span>
-      <%= link_to_add_association(f, :expense_payments, class: 'btn-floating btn-small waves-effect waves-light blue') do %>
-        <i class="material-icons">add</i>
+    <template data-nested-form-target="template">
+      <%= f.fields_for :expense_payments, ExpensePayment.new, child_index: 'NEW_RECORD' do |expense_payments_fields| %>
+        <%= render partial: "expense_payment_fields", locals: { f: expense_payments_fields } %>
       <% end %>
+    </template>
+    <div id="expense_payments" data-nested-form-target="list">
       <%= f.fields_for :expense_payments, payment.expense_payments do |expense_payments_fields| %>
         <%= render partial: "expense_payment_fields", locals: { f: expense_payments_fields } %>
       <% end %>
     </div>
+    <span>Adicione suas despesas</span>
+    <button type="button" class="btn-floating btn-small waves-effect waves-light blue" data-action="nested-form#add">
+      <i class="material-icons">add</i>
+    </button>
   </fieldset>
   <br>
 
-  <fieldset>
+  <fieldset data-controller="nested-form">
     <legend><strong>Receitas</strong></legend>
-    <div id="revenue_payments">
-      <span>Adicione suas receitas</span>
-      <%= link_to_add_association(f, :revenue_payments, class: 'btn-floating btn-small waves-effect waves-light blue') do %>
-        <i class="material-icons">add</i>
+    <template data-nested-form-target="template">
+      <%= f.fields_for :revenue_payments, RevenuePayment.new, child_index: 'NEW_RECORD' do |revenue_payments_fields| %>
+        <%= render partial: "revenue_payment_fields", locals: { f: revenue_payments_fields } %>
       <% end %>
+    </template>
+    <div id="revenue_payments" data-nested-form-target="list">
       <%= f.fields_for :revenue_payments, payment.revenue_payments do |revenue_payments_fields| %>
         <%= render partial: "revenue_payment_fields", locals: { f: revenue_payments_fields } %>
       <% end %>
     </div>
+    <span>Adicione suas receitas</span>
+    <button type="button" class="btn-floating btn-small waves-effect waves-light blue" data-action="nested-form#add">
+      <i class="material-icons">add</i>
+    </button>
   </fieldset>
   <br>
 
@@ -92,10 +102,3 @@
   </div>
   <br>
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.datepicker').datepicker();
-  });  
-
-</script>

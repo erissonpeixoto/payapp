@@ -1,8 +1,9 @@
-<div class="nested-fields">
+<div class="nested-fields" data-new-record="<%= f.object.new_record? %>">
+  <%= f.hidden_field :_destroy %>
   <div class="row">
     <div class="input-field col s7">
       <%= f.label :revenue, class: 'active' %>
-      <%= f.select :revenue_id, 
+      <%= f.select :revenue_id,
           options_from_collection_for_select(Revenue.where(user: current_user).order(:name), :id, :name, f.object.revenue_id ),
           { :include_blank => 'Selecione' }, { :class => 'browser-default' } %>
     </div>
@@ -11,15 +12,15 @@
       <%= f.number_field :value, step: :any %>
     </div>
     <div class="input-field col s2">
-      <%= link_to_remove_association(f, class: 'btn-floating btn-small waves-effect waves-light red') do %>
+      <button type="button" class="btn-floating btn-small waves-effect waves-light red" data-action="nested-form#remove">
         <i class="material-icons">delete</i>
-      <% end %>
+      </button>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s6">
       <%= f.label :paid_at, class: 'active' %>
-      <%= f.text_field :paid_at, class: 'datepicker', value: (f.object.paid_at.strftime('%d/%m/%Y') if f.object.paid_at) %>
+      <%= f.text_field :paid_at, class: 'datepicker', data: { controller: 'datepicker' }, value: (f.object.paid_at.strftime('%d/%m/%Y') if f.object.paid_at) %>
     </div>
   </div>
 </div>

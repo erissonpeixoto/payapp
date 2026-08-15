@@ -15,11 +15,11 @@
   </div>
   <div class="input-field col s6 m2">
     <%= label_tag :period_start, 'De', class: 'active' %>
-    <%= text_field_tag :period_start, params[:period_start], class: 'datepicker' %>
+    <%= text_field_tag :period_start, params[:period_start], class: 'datepicker', data: { controller: 'datepicker' } %>
   </div>
   <div class="input-field col s6 m2">
     <%= label_tag :period_end, 'Até', class: 'active' %>
-    <%= text_field_tag :period_end, params[:period_end], class: 'datepicker' %>
+    <%= text_field_tag :period_end, params[:period_end], class: 'datepicker', data: { controller: 'datepicker' } %>
   </div>
   <div class="input-field col s12 m2">
     <button class="btn waves-effect waves-light" type="submit">
@@ -54,7 +54,7 @@
                 <i class="material-icons">edit</i>
               <% end %>
           </td>
-          <td><%= link_to payment, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn-floating btn-small waves-effect waves-light red' do %>
+          <td><%= link_to payment, data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' }, class: 'btn-floating btn-small waves-effect waves-light red' do %>
                 <i class="material-icons">delete</i>
               <% end %>
           </td>
@@ -73,9 +73,3 @@
 <br>
 
 <%= link_to 'Novo Pagamento', new_payment_path, class: 'waves-effect waves-light btn' %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.datepicker').datepicker();
-  });
-</script>

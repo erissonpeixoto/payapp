@@ -23,3 +23,6 @@
 # Ignore .env
 .env.sample
 .env
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

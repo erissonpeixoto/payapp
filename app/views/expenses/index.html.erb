@@ -25,7 +25,7 @@
                 <i class="material-icons">edit</i>
               <% end %>
           </td>
-          <td><%= link_to expense, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn-floating btn-small waves-effect waves-light red' do %>
+          <td><%= link_to expense, data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' }, class: 'btn-floating btn-small waves-effect waves-light red' do %>
                 <i class="material-icons">delete</i>
               <% end %>
           </td>

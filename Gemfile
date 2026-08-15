@@ -16,14 +16,22 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 6.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+# Serves the legacy Materialize/Sprockets pipeline (JS/CSS/images) that still
+# coexists with Tailwind/importmap until every page migrates. Previously
+# pulled in transitively by sass-rails; now needed explicitly.
+gem 'sprockets-rails'
+# Compile SCSS via the Dart Sass CLI (no Ruby-language Sass implementation involved)
+gem 'dartsass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# Hotwire: SPA-like page updates without writing custom JavaScript (replaces Turbolinks)
+gem 'turbo-rails'
+# Hotwire: modest JavaScript framework for the HTML you already have (replaces jQuery/Cocoon JS)
+gem 'stimulus-rails'
+# Manage JavaScript with ESM import maps, no Node/bundler required (replaces jquery-rails' asset)
+gem 'importmap-rails'
+# Tailwind CSS, compiled via standalone CLI (no Node required)
+gem 'tailwindcss-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -33,9 +41,6 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# Dynamic nested forms using jQuery made easy; works with formtastic, simple_form or default forms
-gem "cocoon"
 
 # Paginate
 gem 'will_paginate-materialize'

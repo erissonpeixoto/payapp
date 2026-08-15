@@ -1,17 +1,23 @@
-<p>
-  <strong>Nome:</strong>
-  <%= @expense.name %>
-</p>
+<%= render "shared/back_header", title: "Despesa", back_path: expenses_path %>
 
-<p>
-  <strong>Fixa?</strong>
-  <%= badges_boolean(@expense.fixed) %>
-</p>
+<div class="space-y-4 rounded-lg border border-line bg-paper-raised p-6">
+  <div>
+    <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Nome</p>
+    <p class="mt-1 text-lg text-ink"><%= @expense.name %></p>
+  </div>
 
-<p>
-  <strong>Categoria:</strong>
-  <%= @expense.try(:category).try(:name) %>
-</p>
+  <div>
+    <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Categoria</p>
+    <p class="mt-1 text-sm text-ink"><%= @expense.try(:category).try(:name) || "Sem categoria" %></p>
+  </div>
 
-<%= link_to 'Editar', edit_expense_path(@expense), class: 'waves-effect waves-light btn blue-grey' %> |
-<%= link_to 'Voltar', expenses_path, class: 'waves-effect waves-light btn blue-grey' %>
+  <div>
+    <p class="text-xs font-medium uppercase tracking-wide text-ink-faint">Despesa fixa?</p>
+    <p class="mt-1"><%= badges_boolean(@expense.fixed) %></p>
+  </div>
+</div>
+
+<div class="mt-6 flex items-center gap-3">
+  <%= link_to "Editar despesa", edit_expense_path(@expense), class: "rounded-md border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-paper-sunken" %>
+  <%= link_to "Excluir despesa", @expense, data: { turbo_method: :delete, turbo_confirm: "Excluir a despesa \"#{@expense.name}\"?" }, class: "rounded-md border border-expense-tint/40 px-4 py-2 text-sm font-medium text-expense hover:bg-expense-tint/10" %>
+</div>

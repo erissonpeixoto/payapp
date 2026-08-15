@@ -1,46 +1,32 @@
-<h4>Receitas</h4>
+<div class="mb-6 flex items-center justify-between">
+  <div>
+    <h1 class="font-display text-2xl font-semibold text-ink">Receitas</h1>
+    <p class="text-xs text-ink-faint"><%= pluralize(@revenues.total_entries, "receita") %></p>
+  </div>
+  <%= link_to 'Nova receita', new_revenue_path, class: "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-contrast hover:bg-accent-tint" %>
+</div>
 
 <% if @revenues.any? %>
-  <table class="striped">
-    <thead>
-      <tr>
-        <th width="45%">Nome</th>
-        <th width="15%">Fixa?</th>
-        <th width="20%">Categoria</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @revenues.each do |revenue| %>
-        <tr>
-          <td><%= revenue.name %></td>
-          <td><%= badges_boolean(revenue.fixed) %></td>
-          <td><%= revenue.try(:category).try(:name) %></td>
-          <td><%= link_to revenue, class: 'btn-floating btn-small waves-effect waves-light blue' do %>
-                <i class="material-icons">pageview</i>
-              <% end %>
-          </td>
-          <td><%= link_to edit_revenue_path(revenue), class: 'btn-floating btn-small waves-effect waves-light green' do %>
-                <i class="material-icons">edit</i>
-              <% end %>
-          </td>
-          <td><%= link_to revenue, data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' }, class: 'btn-floating btn-small waves-effect waves-light red' do %>
-                <i class="material-icons">delete</i>
-              <% end %>
-          </td>
-        </tr>
+  <div class="divide-y divide-line rounded-lg border border-line bg-paper-raised">
+    <% @revenues.each do |revenue| %>
+      <%= link_to revenue, class: "flex items-center justify-between gap-4 px-4 py-4 hover:bg-paper-sunken" do %>
+        <span class="min-w-0">
+          <span class="block truncate text-sm text-ink"><%= revenue.name %></span>
+          <span class="block text-xs text-ink-faint"><%= revenue.try(:category).try(:name) || "Sem categoria" %></span>
+        </span>
+        <span class="flex shrink-0 items-center gap-3">
+          <% if revenue.fixed %>
+            <span class="inline-flex items-center rounded-full bg-revenue-tint/15 px-2.5 py-0.5 text-xs font-semibold text-revenue">Fixa</span>
+          <% end %>
+          <svg class="h-5 w-5 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+          </svg>
+        </span>
       <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </div>
+
+  <%= will_paginate @revenues, renderer: "TailwindPaginationRenderer" %>
 <% else %>
-  <h6 class="header red-text text-lighten-1 center-align">Não há registros para mostrar</h6>
+  <%= render "shared/empty_state", title: "Nenhuma receita cadastrada ainda." %>
 <% end %>
-
-<div class="right"><h6><strong><%= "#{"Total de registros: " + @revenues.count.to_s}" %></strong></h6></div>
-
-<%= will_paginate @revenues %>
-
-<br>
-
-<%= link_to 'Nova Receita', new_revenue_path, class: 'waves-effect waves-light btn' %>

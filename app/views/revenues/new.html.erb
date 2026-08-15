@@ -1,5 +1,3 @@
-<h4>Nova Receita</h4>
+<%= render "shared/back_header", title: "Nova receita", back_path: revenues_path %>
 
 <%= render 'form', revenue: @revenue %>
-
-<%= link_to 'Voltar', revenues_path, class: 'waves-effect waves-light btn blue-grey' %>

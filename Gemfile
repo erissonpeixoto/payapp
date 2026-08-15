@@ -42,8 +42,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Paginate
-gem 'will_paginate-materialize'
+# Paginate. Rendering is now TailwindPaginationRenderer (app/helpers) instead
+# of will_paginate-materialize, which force-overrides the renderer via a
+# will_paginate monkeypatch that ignores WillPaginate::ViewHelpers.pagination_options
+# -- and its own renderer crashes under the current will_paginate/Ruby combo
+# once a collection actually spans more than one page.
+gem 'will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

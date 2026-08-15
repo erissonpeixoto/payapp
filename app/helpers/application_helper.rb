@@ -10,15 +10,16 @@ module ApplicationHelper
     "<span class=\"new badge #{style[:color]}\" data-badge-caption=\"#{style[:label]}\"></span>".html_safe
   end
 
-  def badges_boolean boolean, type = nil
+  CHIP_CLASSES = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
+
+  # `type` no longer changes the color (it used to pick blue vs. green) --
+  # kept only so the pre-redesign payments/show.html.erb call sites
+  # (:expense/:revenue) keep working; drop it once that page is migrated.
+  def badges_boolean(boolean, type = nil)
     if boolean
-      if type == :expense
-        '<span class="new badge blue" data-badge-caption="SIM"></span>'.html_safe
-      else
-        '<span class="new badge green" data-badge-caption="SIM"></span>'.html_safe
-      end
+      content_tag(:span, "Sim", class: "#{CHIP_CLASSES} bg-revenue-tint/15 text-revenue")
     else
-      '<span class="new badge grey" data-badge-caption="NÃO"></span>'.html_safe
+      content_tag(:span, "Não", class: "#{CHIP_CLASSES} bg-paper-sunken text-ink-faint")
     end
   end
 

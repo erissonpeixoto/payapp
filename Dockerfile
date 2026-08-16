@@ -1,6 +1,14 @@
 # Use the official Ruby image matching your .ruby-version
 FROM ruby:4.0-slim
 
+# Default to production -- Nixpacks' Rails provider used to set this
+# automatically at build time, but a plain Dockerfile doesn't, and Rails
+# silently boots as "development" without it (wrong config.hosts allowlist,
+# verbose error pages, config.assets.compile fallback, etc). docker-compose.yml
+# overrides this back to "development" for local dev, and any RAILS_ENV set
+# on the hosting platform overrides it too -- this is only the fallback.
+ENV RAILS_ENV=production
+
 # Install essential dependencies.
 RUN apt-get update -qq && apt-get install -y --no-install-recommends build-essential libpq-dev && \
     rm -rf /var/lib/apt/lists/*

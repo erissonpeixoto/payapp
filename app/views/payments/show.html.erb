@@ -12,6 +12,18 @@
       <%= net < 0 ? "−" : "+" %><%= number_to_currency(net.abs, unit: "R$ ", separator: ",", delimiter: ".") %>
     </p>
 
+    <% percentage = salary_balance_percentage(@payment) %>
+    <% if percentage %>
+      <% balance = salary_balance(@payment) %>
+      <p class="mt-1 text-sm text-ink-soft">
+        Saldo com o salário:
+        <span class="font-mono tabular-nums <%= balance < 0 ? 'text-expense' : 'text-revenue' %>">
+          <%= number_to_currency(balance, unit: "R$ ", separator: ",", delimiter: ".") %>
+        </span>
+        <span class="font-mono tabular-nums">(<%= number_to_percentage(percentage, precision: 1, delimiter: ".", separator: ",") %>)</span>
+      </p>
+    <% end %>
+
     <% if @payment.note.present? %>
       <p class="mt-2 text-sm text-ink-soft"><%= @payment.note %></p>
     <% end %>

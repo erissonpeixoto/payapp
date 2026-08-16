@@ -6,6 +6,24 @@ module PaymentsHelper
     payment.revenue_payments.sum(&:value) - payment.expense_payments.sum(&:value)
   end
 
+  # Salary-relative balance: what's left of the configured salary after this
+  # month's revenue and expenses -- salário + (receitas - despesas).
+  def salary_balance(payment)
+    payment_salary(payment) + payment_net(payment)
+  end
+
+  # nil when there's no salary configured -- a percentage of zero is meaningless.
+  def salary_balance_percentage(payment)
+    salary = payment_salary(payment)
+    return nil if salary.zero?
+
+    salary_balance(payment) / salary * 100
+  end
+
+  def payment_salary(payment)
+    Configuration.where(user: payment.user).last.try(:salary).to_f
+  end
+
   def ledger_month_label(payday)
     I18n.l(payday, format: "%B %Y")
   end

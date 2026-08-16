@@ -23,11 +23,6 @@ class Payment < ApplicationRecord
     Expense.where(user: user).where(fixed: true).where.not(id: [expense_ids])
   end
 
-  def balance_in_percentage
-    salary = ::Configuration.where(user: user).last.try(:salary).to_f
-    balance = ((self.value.to_f * 100)/salary).round(2)
-  end
-
   private
 
   def total_value

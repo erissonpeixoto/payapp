@@ -16,10 +16,25 @@
     <%= select_tag :category_id,
         options_from_collection_for_select(Category.where(user: current_user).order(:name), :id, :name, params[:category_id]),
         { include_blank: "Categoria", class: "inline-block h-auto w-auto shrink-0 rounded-full border border-line bg-paper-raised px-3 py-1.5 text-xs font-medium text-ink-soft focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" } %>
-    <%= date_field_tag :period_start, params[:period_start],
-        class: "h-auto w-36 shrink-0 rounded-full border border-line bg-paper-raised px-3 py-1.5 text-xs font-medium text-ink-soft focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
-    <%= date_field_tag :period_end, params[:period_end],
-        class: "h-auto w-36 shrink-0 rounded-full border border-line bg-paper-raised px-3 py-1.5 text-xs font-medium text-ink-soft focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
+    <% calendar_icon = capture do %>
+      <svg class="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-ink-faint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="16" rx="2" />
+        <path stroke-linecap="round" d="M3 10h18M8 3v4M16 3v4" />
+      </svg>
+    <% end %>
+    <%# iOS Safari doesn't draw a calendar glyph or a "dd/mm/aaaa" placeholder
+        for an empty <input type="date"> the way Chrome does -- without this,
+        the field looks like a blank, unlabeled box on iPhone. %>
+    <div class="relative inline-block h-auto w-36 shrink-0">
+      <%= calendar_icon %>
+      <%= date_field_tag :period_start, params[:period_start],
+          class: "h-auto w-full rounded-full border border-line bg-paper-raised py-1.5 pl-8 pr-3 text-xs font-medium text-ink-soft focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
+    </div>
+    <div class="relative inline-block h-auto w-36 shrink-0">
+      <%= calendar_icon %>
+      <%= date_field_tag :period_end, params[:period_end],
+          class: "h-auto w-full rounded-full border border-line bg-paper-raised py-1.5 pl-8 pr-3 text-xs font-medium text-ink-soft focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
+    </div>
     <button type="submit" class="shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-contrast hover:bg-accent-tint">Aplicar filtros</button>
     <% if filters_active %>
       <%= link_to "Limpar filtros", payments_path, class: "shrink-0 text-xs font-medium text-ink-faint hover:text-ink hover:underline" %>

@@ -17,6 +17,13 @@ RUN bundle install
 # Copy the rest of the application code
 COPY . .
 
+# Precompile assets (Tailwind CSS + the Sprockets/importmap manifest used to
+# serve images and pinned JS) so they don't depend on compiling on the fly --
+# config.assets.compile is false in production. SECRET_KEY_BASE_DUMMY lets
+# this run at build time, before the real secret is available as a runtime
+# env var.
+RUN SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bin/rails assets:precompile
+
 # Copy the entrypoint script
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh

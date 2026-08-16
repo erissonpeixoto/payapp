@@ -72,16 +72,3 @@
   --color-revenue: #8ed2a9;
   --color-revenue-tint: #57967a;
 }
-
-/*
- * Safari has a long-standing bug where the calendar icon inside
- * <input type="date"> (a pseudo-element, not real content) can render
- * outside the input's own box instead of inside it, making the element's
- * visible/interactive footprint wider than the width we set -- it
- * "leaks" past sibling fields that use the same width utility. Anchoring
- * the icon to the input's own padding box keeps it contained.
- */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  right: 0.5rem;
-}

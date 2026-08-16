@@ -30,40 +30,52 @@
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
     <div class="rounded-lg border border-line bg-paper-raised p-6">
       <h2 class="mb-4 text-sm font-semibold text-ink">Saldo do mês atual</h2>
-      <div class="h-64">
-        <canvas
-          data-controller="chart"
-          data-chart-type-value="pie"
-          data-chart-labels-value="<%= @balance_chart[:labels].to_json %>"
-          data-chart-data-value="<%= @balance_chart[:data].to_json %>"
-        ></canvas>
-      </div>
+      <% if @salary.zero? && @total_paid.zero? %>
+        <%= render "shared/empty_state", title: "Sem dados para exibir ainda" %>
+      <% else %>
+        <div class="h-64">
+          <canvas
+            data-controller="chart"
+            data-chart-type-value="pie"
+            data-chart-labels-value="<%= @balance_chart[:labels].to_json %>"
+            data-chart-data-value="<%= @balance_chart[:data].to_json %>"
+          ></canvas>
+        </div>
+      <% end %>
     </div>
 
     <div class="rounded-lg border border-line bg-paper-raised p-6">
       <h2 class="mb-4 text-sm font-semibold text-ink">Despesas por categoria no mês atual</h2>
-      <div class="h-64">
-        <canvas
-          data-controller="chart"
-          data-chart-type-value="bar"
-          data-chart-color-value="expense"
-          data-chart-labels-value="<%= @expenses_by_category_chart[:labels].to_json %>"
-          data-chart-data-value="<%= @expenses_by_category_chart[:data].to_json %>"
-        ></canvas>
-      </div>
+      <% if @expenses_by_category_chart[:data].empty? %>
+        <%= render "shared/empty_state", title: "Nenhuma despesa paga neste fechamento" %>
+      <% else %>
+        <div class="h-64">
+          <canvas
+            data-controller="chart"
+            data-chart-type-value="bar"
+            data-chart-color-value="expense"
+            data-chart-labels-value="<%= @expenses_by_category_chart[:labels].to_json %>"
+            data-chart-data-value="<%= @expenses_by_category_chart[:data].to_json %>"
+          ></canvas>
+        </div>
+      <% end %>
     </div>
 
     <div class="rounded-lg border border-line bg-paper-raised p-6 lg:col-span-2">
       <h2 class="mb-4 text-sm font-semibold text-ink">Valor pago por mês (últimos 6 meses)</h2>
-      <div class="h-64">
-        <canvas
-          data-controller="chart"
-          data-chart-type-value="line"
-          data-chart-color-value="accent"
-          data-chart-labels-value="<%= @monthly_paid_chart[:labels].to_json %>"
-          data-chart-data-value="<%= @monthly_paid_chart[:data].to_json %>"
-        ></canvas>
-      </div>
+      <% if @monthly_paid_chart[:data].empty? %>
+        <%= render "shared/empty_state", title: "Nenhum pagamento nos últimos 6 meses" %>
+      <% else %>
+        <div class="h-64">
+          <canvas
+            data-controller="chart"
+            data-chart-type-value="line"
+            data-chart-color-value="accent"
+            data-chart-labels-value="<%= @monthly_paid_chart[:labels].to_json %>"
+            data-chart-data-value="<%= @monthly_paid_chart[:data].to_json %>"
+          ></canvas>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

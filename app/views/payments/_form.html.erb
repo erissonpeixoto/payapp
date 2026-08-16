@@ -1,7 +1,7 @@
 <%= render "shared/form_errors", record: payment %>
 
 <%= form_for(payment) do |f| %>
-  <div class="mb-6 grid grid-cols-2 gap-4">
+  <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
     <div>
       <%= f.label :payday, "Data do fechamento", class: "mb-1 block text-sm font-medium text-ink" %>
       <%= f.date_field :payday,

@@ -32,7 +32,7 @@ class ExpensesController < ApplicationController
         format.html { redirect_to @expense, notice: 'Despesa foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @expense }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
     end
@@ -46,7 +46,7 @@ class ExpensesController < ApplicationController
         format.html { redirect_to @expense, notice: 'Despesa foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @expense }
       else
-        format.html { render :edit }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
     end

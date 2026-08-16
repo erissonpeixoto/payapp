@@ -52,7 +52,7 @@ class PaymentsController < ApplicationController
         format.html { redirect_to @payment, notice: 'Pagamento foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @payment }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @payment.errors, status: :unprocessable_entity }
       end
     end
@@ -66,7 +66,7 @@ class PaymentsController < ApplicationController
         format.html { redirect_to @payment, notice: 'Pagamento foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @payment }
       else
-        format.html { render :edit }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @payment.errors, status: :unprocessable_entity }
       end
     end

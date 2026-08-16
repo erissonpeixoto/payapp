@@ -32,7 +32,7 @@ class ConfigurationsController < ApplicationController
         format.html { redirect_to @configuration, notice: 'Configuração foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @configuration }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @configuration.errors, status: :unprocessable_entity }
       end
     end
@@ -46,7 +46,7 @@ class ConfigurationsController < ApplicationController
         format.html { redirect_to @configuration, notice: 'Configuração foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @configuration }
       else
-        format.html { render :edit }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @configuration.errors, status: :unprocessable_entity }
       end
     end

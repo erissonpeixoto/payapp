@@ -14,6 +14,17 @@ Devise.setup do |config|
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
 
+  # Devise's own responder defaults error_status to :ok (200) for
+  # backwards compatibility. Turbo Drive requires non-safe form submissions
+  # (POST/PATCH/DELETE) to either redirect or respond with a 4xx/5xx status --
+  # a 200 render is treated as "Form responses must redirect to another
+  # location" and the response body (with validation errors) is never
+  # displayed. Without this, login/signup/password-reset error messages
+  # silently fail to show up in the browser despite being present in the
+  # rendered HTML.
+  config.responder.error_status = :unprocessable_entity
+  config.responder.redirect_status = :see_other
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class

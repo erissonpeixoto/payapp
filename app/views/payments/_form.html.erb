@@ -1,22 +1,21 @@
 <%= render "shared/form_errors", record: payment %>
 
 <%= form_for(payment) do |f| %>
-  <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-    <div>
-      <%= f.label :payday, "Data do fechamento", class: "mb-1 block text-sm font-medium text-ink" %>
-      <%= f.date_field :payday,
-          class: "h-11 w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
-    </div>
-    <div>
-      <%= f.label :status, "Status", class: "mb-1 block text-sm font-medium text-ink" %>
-      <%= f.select :status, Payment.statuses.keys.to_a, { include_blank: "Selecione" },
-          class: "block h-11 w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
-    </div>
+  <div class="mb-6">
+    <%= f.label :payday, "Data do fechamento", class: "mb-1 block text-sm font-medium text-ink" %>
+    <%= f.date_field :payday,
+        class: "w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
+  </div>
+
+  <div class="mb-6">
+    <%= f.label :status, "Status", class: "mb-1 block text-sm font-medium text-ink" %>
+    <%= f.select :status, Payment.statuses.keys.to_a, { include_blank: "Selecione" },
+        class: "block w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
   </div>
 
   <div class="mb-6">
     <%= f.label :note, "Observação", class: "mb-1 block text-sm font-medium text-ink" %>
-    <%= f.text_field :note, class: "h-11 w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
+    <%= f.text_field :note, class: "w-full rounded-md border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
   </div>
 
   <% if payment.persisted? && payment.expenses_fixed_not_used.any? %>

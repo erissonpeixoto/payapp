@@ -26,18 +26,18 @@
     <% end %>
     <%# iOS Safari doesn't draw a calendar glyph or a "dd/mm/aaaa" placeholder for
         an empty <input type="date"> the way Chrome does -- without this, the
-        field looks like a blank, unlabeled box on iPhone. Kept narrower than
-        the grid/flex would otherwise stretch them to (w-28 on mobile) so
-        there's slack between the two: Safari's native
-        calendar-picker-indicator can render wider than the input's own box,
-        and with no slack that bleeds into the neighboring field. %>
-    <div class="mt-2 flex flex-wrap gap-2 sm:mt-0 sm:items-center">
-      <div class="relative w-28 sm:w-36">
+        field looks like a blank, unlabeled box on iPhone. Stacked on mobile
+        (each field on its own row) and side by side from sm: up: Safari's
+        native calendar-picker-indicator can render wider than the input's
+        own box, and two of them side by side on a narrow screen bleed into
+        each other. %>
+    <div class="mt-2 grid grid-cols-1 gap-2 sm:mt-0 sm:flex sm:flex-wrap sm:items-center">
+      <div class="relative sm:w-36">
         <%= calendar_icon %>
         <%= date_field_tag :period_start, params[:period_start],
             class: "h-auto w-full rounded-full border border-line bg-paper-raised py-1.5 pl-8 pr-3 text-xs font-medium text-ink-soft focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
       </div>
-      <div class="relative w-28 sm:w-36">
+      <div class="relative sm:w-36">
         <%= calendar_icon %>
         <%= date_field_tag :period_end, params[:period_end],
             class: "h-auto w-full rounded-full border border-line bg-paper-raised py-1.5 pl-8 pr-3 text-xs font-medium text-ink-soft focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" %>
